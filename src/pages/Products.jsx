@@ -48,20 +48,6 @@ const products = [
 const Products = () => {
   return (
     <div className="products-page">
-      {/* Products Hero Banner */}
-      <section className="products-hero">
-        <div className="hero-banner-overlay">
-          <div className="container">
-            <h1 className="hero-h1" style={{ color: 'white' }}>Our Chocolate Beeda Collection</h1>
-          </div>
-        </div>
-        <img
-          src="/assets/B__376__copy.jpg"
-          alt="Our Collection"
-          className="hero-banner-img"
-        />
-      </section>
-
       <div className="container section">
         <header className="page-header text-center fade-in">
           <span className="label-caps">OUR COLLECTION</span>
@@ -128,42 +114,7 @@ const Products = () => {
       <style jsx>{`
         .products-page {
           background-color: var(--section-bg);
-          padding-top: 0; /* Remove top padding for hero banner */
-        }
-
-        .products-hero {
-          height: 400px;
-          position: relative;
-          overflow: hidden;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .hero-banner-img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          object-position: center;
-        }
-
-        .hero-banner-overlay {
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background: rgba(30, 14, 5, 0.4);
-          z-index: 2;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          text-align: center;
-        }
-
-        .hero-banner-overlay h1 {
-          font-size: 3.5rem;
-          text-shadow: 0 4px 20px rgba(0,0,0,0.4);
+          padding-top: 100px;
         }
 
         .flavours-overview {
