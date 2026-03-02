@@ -3,43 +3,79 @@ import { Plus, Minus, ShoppingCart, ChevronRight } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 
 const domesticProducts = [
-  { id: 'dom-rose', name: 'Rose Flavour', pack: 'Pack of 1 × 25 pcs', price: 450 },
-  { id: 'dom-choco', name: 'Chocolate Flavour', pack: 'Pack of 1 × 25 pcs', price: 450 },
-  { id: 'dom-pista', name: 'Pista Flavour', pack: 'Pack of 1 × 25 pcs', price: 450 },
-  { id: 'dom-vanilla', name: 'Vanilla Flavour', pack: 'Pack of 1 × 25 pcs', price: 450 },
-  { id: 'dom-kesar', name: 'Kesar Badam Flavour', pack: 'Pack of 1 × 25 pcs', price: 450 },
+  { id: 'dom-rose', name: 'Rose Flavour', pack: 'Pack of 1 × 25 pcs', price: 450, image: '/2/B (130) copy.jpg' },
+  { id: 'dom-choco', name: 'Chocolate Flavour', pack: 'Pack of 1 × 25 pcs', price: 450, image: '/1/B (71) copy.jpg' },
+  { id: 'dom-pista', name: 'Pista Flavour', pack: 'Pack of 1 × 25 pcs', price: 450, image: '/4/B (268) copy.jpg' },
+  { id: 'dom-vanilla', name: 'Vanilla Flavour', pack: 'Pack of 1 × 25 pcs', price: 450, image: '/5/B (352) copy.jpg' },
+  { id: 'dom-kesar', name: 'Kesar Badam Flavour', pack: 'Pack of 1 × 25 pcs', price: 450, image: '/4/B (292) copy.jpg' },
 ];
 
 const commercialProducts = [
-  { id: 'com-rose', name: 'Rose Flavour', pack: 'Pack of 1 × 50 pcs', price: 850 },
-  { id: 'com-choco', name: 'Chocolate Flavour', pack: 'Pack of 1 × 50 pcs', price: 850 },
-  { id: 'com-pista', name: 'Pista Flavour', pack: 'Pack of 1 × 50 pcs', price: 850 },
-  { id: 'com-vanilla', name: 'Vanilla Flavour', pack: 'Pack of 1 × 50 pcs', price: 850 },
-  { id: 'com-kesar', name: 'Kesar Badam Flavour', pack: 'Pack of 1 × 50 pcs', price: 850 },
+  { id: 'com-rose', name: 'Rose Flavour', pack: 'Pack of 1 × 50 pcs', price: 850, image: '/2/B (130) copy.jpg' },
+  { id: 'com-choco', name: 'Chocolate Flavour', pack: 'Pack of 1 × 50 pcs', price: 850, image: '/1/B (71) copy.jpg' },
+  { id: 'com-pista', name: 'Pista Flavour', pack: 'Pack of 1 × 50 pcs', price: 850, image: '/4/B (268) copy.jpg' },
+  { id: 'com-vanilla', name: 'Vanilla Flavour', pack: 'Pack of 1 × 50 pcs', price: 850, image: '/5/B (352) copy.jpg' },
+  { id: 'com-kesar', name: 'Kesar Badam Flavour', pack: 'Pack of 1 × 50 pcs', price: 850, image: '/4/B (292) copy.jpg' },
 ];
 
 const Pricelist = () => {
+  const { cart, addToCart, removeFromCart, cartTotal, cartCount } = useCart();
   const [activeTab, setActiveTab] = useState('Domestic');
 
-  const handleOrderNow = (product) => {
-    const phoneNumber = "917013886521";
-    const message = `Hi! I'm interested in ordering the *${product.name}* (${product.pack}) priced at ₹${product.price}. Please let me know how to proceed.`;
-    const encodedMessage = encodeURIComponent(message);
-    window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
+  const getItemQuantity = (id) => {
+    const item = cart.find((i) => i.id === id);
+    return item ? item.quantity : 0;
   };
 
-  const ProductRow = ({ product }) => {
+  const handleCheckout = () => {
+    const phoneNumber = "917013886521";
+    let message = "🛍️ *New Order from Joyous Food Factory*\n\n";
+
+    cart.forEach((item, index) => {
+      message += `${index + 1}. *${item.name}*\n`;
+      message += `   Qty: ${item.quantity}\n`;
+      message += `   Pack: ${item.pack}\n`;
+      message += `   Price: ₹${item.price * item.quantity}\n\n`;
+    });
+
+    message += `──────────────────\n`;
+    message += `💰 *Total Amount: ₹${cartTotal}*\n`;
+    message += `📦 *Total Items: ${cartCount}*\n\n`;
+    message += `Please confirm my order. Thank you!`;
+
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+    window.open(whatsappUrl, '_blank');
+  };
+
+  const ProductCard = ({ product }) => {
+    const quantity = getItemQuantity(product.id);
+
     return (
-      <div className="product-row">
-        <div className="product-details">
-          <span className="flavor-name">{product.name}</span>
-          <span className="pack-size">{product.pack}</span>
+      <div className="blinkit-card fade-in">
+        <div className="card-image">
+          <img src={product.image} alt={product.name} />
         </div>
-        <div className="product-price">₹{product.price}</div>
-        <div className="product-action">
-          <button className="add-btn pill" onClick={() => handleOrderNow(product)}>
-            Order
-          </button>
+        <div className="card-details">
+          <h3 className="card-title">{product.name}</h3>
+          <p className="card-pack">{product.pack}</p>
+          <div className="card-bottom">
+            <span className="card-price">₹{product.price}</span>
+            <div className="card-action">
+              {quantity === 0 ? (
+                <button className="blinkit-add-btn" onClick={() => addToCart(product)}>
+                  ADD
+                </button>
+              ) : (
+                <div className="blinkit-qty-btn">
+                  <button onClick={() => removeFromCart(product.id)}><Minus size={14} /></button>
+                  <span>{quantity}</span>
+                  <button onClick={() => addToCart(product)}><Plus size={14} /></button>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -47,256 +83,63 @@ const Pricelist = () => {
 
   return (
     <div className="pricelist-section">
-      <header className="pricelist-header">
-        <h2>Flavours & Pricing</h2>
-        <p>Choose Domestic or Commercial packs</p>
-      </header>
-
-      {/* Mobile Tabs */}
-      <div className="tab-container mobile-only">
+      <div className="tab-container">
         <button
           className={activeTab === 'Domestic' ? 'active' : ''}
           onClick={() => setActiveTab('Domestic')}
         >
-          Domestic
+          Domestic Packs
         </button>
         <button
           className={activeTab === 'Commercial' ? 'active' : ''}
           onClick={() => setActiveTab('Commercial')}
         >
-          Commercial
+          Commercial Packs
         </button>
       </div>
 
-      <div className="layout-grid">
-        {/* Domestic Section */}
-        <section className={`menu-column domestic-col ${activeTab === 'Domestic' ? 'show-mobile' : 'hide-mobile'}`}>
-          <h3 className="section-title desktop-only">Domestic</h3>
-          <div className="rows-container">
-            {domesticProducts.map((p) => <ProductRow key={p.id} product={p} />)}
-          </div>
-          <div className="note-bar info">
-            “Shipping extra. Delivery all over India.”
-          </div>
-        </section>
-
-        {/* Commercial Section */}
-        <section className={`menu-column commercial-col ${activeTab === 'Commercial' ? 'show-mobile' : 'hide-mobile'}`}>
-          <h3 className="section-title desktop-only">Commercial</h3>
-          <div className="rows-container">
-            {commercialProducts.map((p) => <ProductRow key={p.id} product={p} />)}
-          </div>
-
-          <div className="min-order-strip">
-            <span className="min-order-label">Minimum Order</span>
-            <div className="chips">
-              {[250, 500, 750, 1000].map(val => (
-                <span key={val} className="chip">{val}</span>
-              ))}
-            </div>
-          </div>
-
-          <div className="note-bar free-shipping">
-            “Free shipping. Delivery all over India.”
-          </div>
-        </section>
+      <div className="blinkit-grid">
+        {(activeTab === 'Domestic' ? domesticProducts : commercialProducts).map((p) => (
+          <ProductCard key={p.id} product={p} />
+        ))}
       </div>
 
+      <div className="shipping-note text-center">
+        {activeTab === 'Domestic'
+          ? "🚚 Shipping extra. Delivery all over India."
+          : "🚚 Free shipping on Commercial orders. Delivery all over India."}
+      </div>
+
+      {/* Sticky Mini Cart */}
+      {cartCount > 0 && (
+        <div className="mini-cart-sticky">
+          <div className="mini-cart-content">
+            <div className="cart-info">
+              <ShoppingCart size={20} />
+              <div className="cart-text">
+                <span className="cart-count">{cartCount} items</span>
+                <span className="cart-total">₹{cartTotal}</span>
+              </div>
+            </div>
+            <button className="checkout-btn" onClick={handleCheckout}>
+              Next <ChevronRight size={18} />
+            </button>
+          </div>
+        </div>
+      )}
 
       <style jsx>{`
         .pricelist-section {
-          padding: 60px 0;
-          max-width: 1000px;
+          max-width: 1200px;
           margin: 0 auto;
-          position: relative;
-        }
-
-        .pricelist-header {
-          text-align: center;
-          margin-bottom: 40px;
-        }
-
-        .pricelist-header h2 {
-          font-family: var(--font-display);
-          font-size: 2.5rem;
-          color: var(--hero-bg);
-          margin-bottom: 8px;
-        }
-
-        .pricelist-header p {
-          opacity: 0.6;
-          font-size: 1rem;
-        }
-
-        .layout-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 40px;
-        }
-
-        .menu-column {
-          background: white;
-          padding: 30px;
-          border-radius: 16px;
-          box-shadow: 0 10px 30px var(--shadow-color);
-        }
-
-        .section-title {
-          font-family: var(--font-display);
-          font-size: 1.8rem;
-          margin-bottom: 25px;
-          color: var(--hero-bg);
-          border-bottom: 1px solid #f0f0f0;
-          padding-bottom: 15px;
-        }
-
-        .rows-container {
-          display: flex;
-          flex-direction: column;
-          gap: 15px;
-          margin-bottom: 30px;
-        }
-
-        .product-row {
-          display: flex;
-          align-items: center;
-          padding: 12px 15px;
-          border: 1px solid #f5f5f5;
-          border-radius: 12px;
-          transition: all 0.3s ease;
-        }
-
-        .product-row:hover {
-          border-color: var(--accent-gold);
-          transform: translateY(-2px);
-          box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-        }
-
-        .product-details {
-          display: flex;
-          flex-direction: column;
-          flex: 1;
-        }
-
-        .flavor-name {
-          font-weight: 700;
-          color: #222;
-          font-size: 0.95rem;
-        }
-
-        .pack-size {
-          font-size: 0.75rem;
-          color: #888;
-          margin-top: 2px;
-        }
-
-        .product-price {
-          font-weight: 700;
-          color: var(--hero-bg);
-          margin: 0 15px;
-          font-size: 0.95rem;
-        }
-
-        .add-btn {
-          background: white;
-          border: 1px solid var(--accent-gold);
-          color: var(--accent-gold);
-          padding: 6px 16px;
-          border-radius: 20px;
-          font-weight: 700;
-          font-size: 0.8rem;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          gap: 5px;
-          transition: all 0.3s;
-        }
-
-        .add-btn:hover {
-          background: var(--accent-gold);
-          color: white;
-        }
-
-        .qty-control {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          background: var(--accent-gold);
-          color: white;
-          padding: 6px 12px;
-          border-radius: 20px;
-        }
-
-        .qty-control button {
-          background: none;
-          border: none;
-          color: white;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          padding: 2px;
-        }
-
-        .qty-control span {
-          font-weight: 700;
-          min-width: 15px;
-          text-align: center;
-          font-size: 0.9rem;
-        }
-
-        .note-bar {
-          background: #fcfcfc;
-          padding: 12px;
-          border-radius: 8px;
-          font-size: 0.8rem;
-          text-align: center;
-          border-left: 3px solid #ddd;
-          color: #666;
-          font-style: italic;
-        }
-
-        .note-bar.free-shipping {
-          border-left-color: #25D366;
-        }
-
-        .min-order-strip {
-          margin: 20px 0;
-          padding: 15px;
-          background: var(--section-bg);
-          border-radius: 12px;
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-        }
-
-        .min-order-label {
-          font-weight: 700;
-          font-size: 0.8rem;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-          color: var(--berry-pink);
-        }
-
-        .chips {
-          display: flex;
-          gap: 8px;
-        }
-
-        .chip {
-          background: white;
-          padding: 4px 12px;
-          border-radius: 6px;
-          font-size: 0.8rem;
-          font-weight: 600;
-          color: var(--hero-bg);
-          box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+          padding-bottom: 15vh;
         }
 
         /* Tabs */
         .tab-container {
           display: flex;
           justify-content: center;
-          margin-bottom: 30px;
+          margin-bottom: 40px;
           background: rgba(214, 0, 141, 0.05);
           padding: 6px;
           border-radius: 40px;
@@ -309,12 +152,12 @@ const Pricelist = () => {
         .tab-container button {
           border: none;
           background: none;
-          padding: 10px 30px;
+          padding: 12px 35px;
           border-radius: 35px;
           font-weight: 700;
-          font-size: 0.85rem;
+          font-size: 0.9rem;
           cursor: pointer;
-          transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+          transition: all 0.3s ease;
           color: var(--hero-bg);
           opacity: 0.6;
           text-transform: uppercase;
@@ -325,38 +168,147 @@ const Pricelist = () => {
           background: var(--hero-bg);
           color: white;
           opacity: 1;
-          box-shadow: 0 4px 15px rgba(42, 1, 26, 0.2);
+          box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
 
-        /* Sticky Mini Cart */
+        /* Grid */
+        .blinkit-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+          gap: 20px;
+          padding: 0 10px;
+        }
+
+        /* Card (Blinkit Style) */
+        .blinkit-card {
+          background: white;
+          border-radius: 12px;
+          padding: 12px;
+          border: 1px solid #eee;
+          transition: all 0.3s ease;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .blinkit-card:hover {
+          box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+          border-color: var(--accent-gold);
+        }
+
+        .card-image {
+          width: 100%;
+          aspect-ratio: 1;
+          border-radius: 8px;
+          overflow: hidden;
+          margin-bottom: 12px;
+          background: #f8f8f8;
+        }
+
+        .card-image img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .card-details {
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+        }
+
+        .card-title {
+          font-size: 0.95rem;
+          font-weight: 600;
+          color: #222;
+          margin-bottom: 4px;
+          line-height: 1.2;
+        }
+
+        .card-pack {
+          font-size: 0.75rem;
+          color: #666;
+          margin-bottom: 15px;
+        }
+
+        .card-bottom {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-top: auto;
+        }
+
+        .card-price {
+          font-weight: 800;
+          font-size: 1rem;
+          color: #111;
+        }
+
+        /* Buttons */
+        .blinkit-add-btn {
+          background: white;
+          color: #d6008d;
+          border: 1px solid #d6008d;
+          padding: 6px 20px;
+          border-radius: 8px;
+          font-weight: 800;
+          font-size: 0.8rem;
+          cursor: pointer;
+          transition: all 0.2s;
+        }
+
+        .blinkit-add-btn:hover {
+          background: #d6008d;
+          color: white;
+        }
+
+        .blinkit-qty-btn {
+          background: #d6008d;
+          color: white;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 6px 10px;
+          border-radius: 8px;
+        }
+
+        .blinkit-qty-btn button {
+          background: none;
+          border: none;
+          color: white;
+          cursor: pointer;
+          display: flex;
+          padding: 2px;
+        }
+
+        .blinkit-qty-btn span {
+          font-weight: 800;
+          font-size: 0.85rem;
+          min-width: 15px;
+          text-align: center;
+        }
+
+        .shipping-note {
+          margin-top: 40px;
+          font-size: 0.9rem;
+          color: #666;
+          font-style: italic;
+        }
+
+        /* Sticky Cart */
         .mini-cart-sticky {
           position: fixed;
-          bottom: 30px;
+          bottom: 20px;
           left: 50%;
           transform: translateX(-50%);
-          width: 90%;
-          max-width: 450px;
-          background: var(--hero-bg);
+          width: 95%;
+          max-width: 500px;
+          background: #d6008d;
           color: white;
           padding: 12px 20px;
-          border-radius: 100px;
-          z-index: 1001;
-          box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-          animation: slideUp 0.4s ease-out;
-        }
-
-        @media (min-width: 1200px) {
-          .mini-cart-sticky {
-            left: auto;
-            right: 40px;
-            transform: none;
-            width: 380px;
-          }
-        }
-
-        @keyframes slideUp {
-          from { transform: translate(-50%, 100%); opacity: 0; }
-          to { transform: translate(-50%, 0); opacity: 1; }
+          border-radius: 12px;
+          z-index: 1000;
+          box-shadow: 0 8px 32px rgba(214, 0, 141, 0.4);
+          animation: slideUp 0.3s ease-out;
         }
 
         .mini-cart-content {
@@ -369,43 +321,48 @@ const Pricelist = () => {
           display: flex;
           align-items: center;
           gap: 12px;
-          font-weight: 600;
         }
 
-        .separator { opacity: 0.3; }
-        .total-price { color: var(--accent-gold); font-size: 1.1rem; }
+        .cart-text {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .cart-count {
+          font-size: 0.75rem;
+          font-weight: 600;
+          opacity: 0.9;
+        }
+
+        .cart-total {
+          font-size: 1.1rem;
+          font-weight: 800;
+        }
 
         .checkout-btn {
-          background: var(--accent-gold);
-          color: white;
+          background: white;
+          color: #d6008d;
           border: none;
-          padding: 10px 20px;
-          border-radius: 50px;
-          font-weight: 700;
-          font-size: 0.85rem;
-          cursor: pointer;
+          padding: 10px 24px;
+          border-radius: 8px;
+          font-weight: 800;
           display: flex;
           align-items: center;
-          gap: 5px;
-          transition: transform 0.2s;
+          gap: 4px;
+          cursor: pointer;
         }
 
-        .checkout-btn:hover {
-          transform: scale(1.05);
+        @keyframes slideUp {
+          from { bottom: -100px; opacity: 0; }
+          to { bottom: 20px; opacity: 1; }
         }
 
-        @media (min-width: 769px) {
-          .mobile-only { display: none; }
-          .menu-column { display: block !important; }
-        }
-
-        @media (max-width: 768px) {
-          .desktop-only { display: none; }
-          .layout-grid { grid-template-columns: 1fr; }
-          .menu-column.hide-mobile { display: none; }
-          .menu-column.show-mobile { display: block; }
-          .pricelist-section { padding: 40px 15px; }
-          .pricelist-header h2 { font-size: 2rem; }
+        @media (max-width: 600px) {
+          .blinkit-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+          .tab-container button { padding: 10px 20px; font-size: 0.8rem; }
+          .card-title { font-size: 0.85rem; }
+          .card-price { font-size: 0.9rem; }
+          .blinkit-add-btn { padding: 5px 15px; }
         }
       `}</style>
     </div>

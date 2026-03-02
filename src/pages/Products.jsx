@@ -62,7 +62,19 @@ const Products = () => {
         </Link>
         <header className="page-header text-center fade-in">
           <span className="label-caps">OUR COLLECTION</span>
-          <p className="page-subtitle">Handcrafted fresh daily. Available individually, in gift boxes, and in bulk orders.</p>
+          <h1 className="page-title">Handcrafted fresh daily</h1>
+          <p className="page-subtitle">Available individually, in gift boxes, and in bulk orders. Choose from our specialized packs below.</p>
+        </header>
+
+        {/* Pricing Selection at the Top */}
+        <Pricelist />
+
+        <div className="section-divider" style={{ margin: '80px 0 60px', opacity: 0.1, borderTop: '1px solid #000' }} />
+
+        <header className="text-center fade-in" style={{ marginBottom: '40px' }}>
+          <span className="label-caps">FLAVOURS GUIDE</span>
+          <h2 className="section-title">Explore Our Flavours</h2>
+          <p className="page-subtitle">A detailed look at our signature artisanal recipes.</p>
         </header>
 
         <div className="products-grid">
@@ -102,17 +114,14 @@ const Products = () => {
                   <span style={{ fontSize: '0.75rem', opacity: 0.6 }}>Available in:</span>
                   <p style={{ fontSize: '0.8rem', fontWeight: 600 }}>{product.available}</p>
                 </div>
-                <button className="gold-button" style={{ width: '100%', marginTop: '20px' }}>Inquire for Price</button>
+                <button className="gold-button" style={{ width: '100%', marginTop: '20px', cursor: 'default' }}>Artisanal Quality</button>
               </div>
             </div>
           ))}
         </div>
 
-        {/* New Pricing Section */}
-        <Pricelist />
-
         {/* Reference Photos Section */}
-        <section className="reference-photos fade-in" style={{ marginTop: '40px' }}>
+        <section className="reference-photos fade-in" style={{ marginTop: '80px' }}>
           <header className="text-center" style={{ marginBottom: '40px' }}>
             <span className="label-caps">REFERENCE PHOTOS</span>
             <h2 className="section-title">Visual Guide</h2>
@@ -164,35 +173,6 @@ const Products = () => {
           transform: translateX(-5px);
         }
 
-        .flavours-overview {
-          margin-bottom: 80px;
-          border-radius: 16px;
-          overflow: hidden;
-          background: white;
-          box-shadow: 0 10px 40px rgba(0,0,0,0.05);
-        }
-
-        .overview-image {
-          height: 500px;
-          overflow: hidden;
-        }
-
-        .overview-image img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-
-        .overview-caption {
-          padding: 30px;
-          border-top: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .overview-caption .italic-accent {
-          font-size: 1.2rem;
-          margin-bottom: 10px;
-        }
-
         .page-header {
           margin-bottom: 60px;
           max-width: 800px;
@@ -202,7 +182,7 @@ const Products = () => {
 
         .page-title {
           font-size: 3.5rem;
-          margin-bottom: 1.5rem;
+          margin-bottom: 1rem;
           color: var(--hero-bg);
         }
 
@@ -287,13 +267,6 @@ const Products = () => {
 
         .product-card:hover .product-actual-image {
           transform: scale(1.1);
-        }
-
-        .reference-photos {
-          background: white;
-          padding: 60px 40px;
-          border-radius: 20px;
-          box-shadow: 0 10px 40px var(--shadow-color);
         }
 
         .reference-grid {

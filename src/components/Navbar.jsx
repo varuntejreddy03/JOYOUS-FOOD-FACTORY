@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X, Instagram, Phone, Mail, MapPin } from 'lucide-react'
+import { Menu, X, Instagram, Phone, Mail, MapPin, ShoppingCart } from 'lucide-react'
+import { useCart } from '../context/CartContext'
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const location = useLocation()
+  const { cartCount } = useCart()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,12 +46,22 @@ const Navbar = () => {
               {link.name}
             </Link>
           ))}
+          <Link to="/products" className="nav-cart-btn">
+            <ShoppingCart size={20} />
+            {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
+          </Link>
         </div>
 
-        {/* Mobile Toggle */}
-        <button className="mobile-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        {/* Mobile Toggle & Action */}
+        <div className="mobile-actions">
+          <Link to="/products" className="nav-cart-btn mobile-only">
+            <ShoppingCart size={20} />
+            {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
+          </Link>
+          <button className="mobile-toggle" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu Overlay */}
