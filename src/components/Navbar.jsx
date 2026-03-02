@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { Menu, X } from 'lucide-react'
+import { Menu, X, Instagram, Phone, Mail, MapPin } from 'lucide-react'
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -20,11 +20,10 @@ const Navbar = () => {
     { name: 'Products', path: '/products' },
     { name: 'About', path: '/about' },
     { name: 'Gallery', path: '/gallery' },
-    { name: 'Gifting', path: '/gifting' },
     { name: 'Contact', path: '/contact' },
   ]
 
-  const isLightHero = ['/', '/about', '/gifting'].includes(location.pathname)
+  const isLightHero = ['/', '/about'].includes(location.pathname)
 
   return (
     <nav className={`navbar ${isScrolled ? 'scrolled' : ''} ${isLightHero ? 'nav-light' : ''}`}>
@@ -53,18 +52,34 @@ const Navbar = () => {
         </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Overlay */}
       <div className={`mobile-menu ${isMenuOpen ? 'open' : ''}`}>
-        {navLinks.map((link) => (
-          <Link
-            key={link.path}
-            to={link.path}
-            className={`mobile-link ${location.pathname === link.path ? 'active' : ''}`}
-            onClick={() => setIsMenuOpen(false)}
-          >
-            {link.name}
-          </Link>
-        ))}
+        <div className="mobile-menu-inner">
+          <div className="mobile-nav-links">
+            {navLinks.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                className={`mobile-link ${location.pathname === link.path ? 'active' : ''}`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+
+          <div className="mobile-menu-footer">
+            <div className="mobile-contact-info">
+              <p><MapPin size={16} /> KPHB, Hyderabad</p>
+              <p><Phone size={16} /> +91 70138 86521</p>
+              <p><Mail size={16} /> Joyousfoodshyd@gmail.com</p>
+            </div>
+            <div className="mobile-socials">
+              <a href="#" className="social-icon"><Instagram size={20} /></a>
+              <a href="https://wa.me/917013886521" className="social-icon"><Phone size={20} /></a>
+            </div>
+          </div>
+        </div>
       </div>
     </nav>
   )

@@ -107,7 +107,7 @@ const Gifting = () => {
           background: white;
           border-radius: 12px;
           overflow: hidden;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+          box-shadow: 0 10px 30px var(--shadow-color);
           transition: transform 0.4s;
           text-align: center;
         }
@@ -123,8 +123,8 @@ const Gifting = () => {
           font-size: 4rem;
         }
 
-        .gold-gradient { background: linear-gradient(135deg, var(--accent-gold) 0%, #a8764b 100%); }
-        .dark-gradient { background: linear-gradient(135deg, var(--hero-bg) 0%, #000 100%); }
+        .gold-gradient { background: linear-gradient(135deg, var(--accent-gold) 0%, #b78a28 100%); }
+        .dark-gradient { background: linear-gradient(135deg, var(--hero-bg) 0%, #1a0610 100%); }
 
         .card-content { padding: 30px; }
         .card-content h3 { font-size: 1.25rem; margin-bottom: 10px; color: var(--hero-bg); }

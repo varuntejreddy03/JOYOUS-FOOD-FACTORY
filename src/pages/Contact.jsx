@@ -1,11 +1,15 @@
 import React from 'react'
-import { Phone, Mail, MapPin, Clock, MessageSquare, Briefcase, Heart, Star } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { ArrowLeft, Phone, Mail, MapPin, Clock, MessageSquare, Briefcase, Heart, Star } from 'lucide-react'
 
 const Contact = () => {
   return (
     <div className="contact-page">
       <section className="contact-hero section fade-in">
         <div className="container text-center">
+          <Link to="/" className="back-home-btn" style={{ marginBottom: '20px' }}>
+            <ArrowLeft size={18} /> Back to Home
+          </Link>
           <span className="label-caps">GET IN TOUCH</span>
           <h1 className="page-title">We'd Love to <span className="italic-accent">Hear from You</span></h1>
           <p className="page-subtitle">For orders, queries, or just to say hello—we reach out across Hyderabad & Telangana.</p>
@@ -117,6 +121,26 @@ const Contact = () => {
           padding-top: 100px;
         }
 
+        .back-home-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          text-decoration: none;
+          color: var(--hero-bg);
+          font-weight: 700;
+          font-size: 0.85rem;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          transition: all 0.3s ease;
+          opacity: 0.6;
+        }
+
+        .back-home-btn:hover {
+          opacity: 1;
+          color: var(--accent-gold);
+          transform: translateX(-5px);
+        }
+
         .page-title {
           font-size: 3.5rem;
           color: var(--hero-bg);
@@ -134,7 +158,7 @@ const Contact = () => {
            background: white;
            padding: 25px;
            border-radius: 12px;
-           box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+           box-shadow: 0 5px 20px var(--shadow-color);
            border-left: 4px solid var(--accent-gold);
            margin-bottom: 20px;
         }
@@ -144,10 +168,10 @@ const Contact = () => {
         .info-text p { opacity: 0.8; font-size: 0.95rem; }
 
         .form-container {
-          padding: 50px;
-          background: white;
-          border-radius: 16px;
-          box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+           padding: 50px;
+           background: white;
+           border-radius: 16px;
+           box-shadow: 0 20px 50px var(--shadow-color);
         }
 
         .form-row {
@@ -177,13 +201,16 @@ const Contact = () => {
         .section-title { font-size: 2.5rem; }
 
         @media (max-width: 992px) {
-          .contact-grid { grid-template-columns: 1fr; }
-          .page-title { font-size: 2.8rem; }
+          .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+          .page-title { font-size: 3rem; }
+          .contact-info { order: 2; }
+          .form-container { padding: 40px 24px; order: 1; }
         }
 
         @media (max-width: 600px) {
            .form-row { grid-template-columns: 1fr; }
-           .form-container { padding: 30px; }
+           .form-container { padding: 30px 20px; }
+           .page-title { font-size: 2.5rem; }
         }
       `}</style>
     </div>

@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { ArrowLeft } from 'lucide-react'
 
 const About = () => {
   return (
@@ -6,6 +8,9 @@ const About = () => {
       <section className="about-hero">
         <div className="diagonal-texture"></div>
         <div className="container">
+          <Link to="/" className="back-home-btn">
+            <ArrowLeft size={18} /> Back to Home
+          </Link>
           <div className="hero-text-center fade-in">
             <span className="label-caps italic-accent" style={{ color: 'white' }}>OUR STORY</span>
             <h1 className="hero-h1">Born in Hyderabad. <br /> <span className="italic-accent">Built on Tradition.</span></h1>
@@ -70,12 +75,32 @@ const About = () => {
       </section>
 
       <style jsx>{`
-        .about-page {
-          background-color: var(--section-bg);
+        .about-page { padding-top: 100px; background-color: var(--section-bg); }
+        .back-home-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          text-decoration: none;
+          color: white;
+          font-weight: 700;
+          font-size: 0.85rem;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          margin-bottom: 30px;
+          transition: all 0.3s ease;
+          opacity: 0.8;
+          position: relative;
+          z-index: 10;
+        }
+
+        .back-home-btn:hover {
+          opacity: 1;
+          color: var(--accent-gold);
+          transform: translateX(-5px);
         }
 
         .about-hero {
-          height: 70vh;
+          height: 60vh;
           min-height: 500px;
           background-color: var(--hero-bg);
           color: var(--text-primary);
@@ -84,6 +109,7 @@ const About = () => {
           justify-content: center;
           position: relative;
           overflow: hidden;
+          margin-top: -100px;
         }
 
         .hero-text-center { text-align: center; }
@@ -97,7 +123,7 @@ const About = () => {
 
         .story-para {
           font-size: 1.15rem;
-          line-height:1.7;
+          line-height: 1.7;
           margin-bottom: 2rem;
           opacity: 0.9;
         }

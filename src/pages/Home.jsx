@@ -139,7 +139,7 @@ const Home = () => {
 
         .hero-img {
           width: 100%;
-          filter: drop-shadow(0 20px 50px rgba(0,0,0,0.5));
+          filter: drop-shadow(0 20px 50px rgba(214, 0, 141, 0.4));
         }
 
         .legacy { background-color: var(--section-bg); }
@@ -180,7 +180,7 @@ const Home = () => {
 
         .legacy-img {
           border-radius: 12px;
-          box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+          box-shadow: 0 20px 60px var(--shadow-color);
         }
 
         .gold-border-accent {
@@ -195,15 +195,21 @@ const Home = () => {
           .hero-grid, .legacy-grid {
             grid-template-columns: 1fr;
             text-align: center;
-            gap: 60px;
+            gap: 40px;
           }
-          .hero { height: auto; padding: 120px 0 60px; }
-          .hero-h1 { font-size: 3.5rem; }
+          .hero { height: auto; padding: 140px 0 80px; }
+          .hero-h1 { font-size: 3rem; margin-bottom: 1.5rem; }
+          .hero-p { font-size: 1.1rem; margin-bottom: 2.5rem; }
           .hero-actions { justify-content: center; }
-          .gold-rule { margin: 0 auto 2rem; }
-          .hero-p { margin: 0 auto 3rem; }
+          .gold-rule { margin: 0 auto 1.5rem; }
           .legacy-image-frame { order: -1; }
           .section-title { font-size: 2.5rem; }
+        }
+
+        @media (max-width: 480px) {
+           .hero-h1 { font-size: 2.5rem; }
+           .hero-actions { flex-direction: column; gap: 15px; }
+           .hero-actions .gold-button, .hero-actions .outline-button { width: 100%; }
         }
       `}</style>
     </div>

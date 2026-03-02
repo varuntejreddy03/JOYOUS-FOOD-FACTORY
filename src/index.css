@@ -2,21 +2,28 @@
 
 :root {
   /* Brand Colors */
-  --hero-bg: #1e0e05;
-  --section-bg: #fdf6ec;
-  --accent-gold: #c9956c;
-  --text-primary: #f5e6d3;
-  --footer-bg: #150800;
-  --green-accent: #3a6b35;
-  --text-charcoal: #333333;
+  --hero-bg: #2a011a;
+  /* Darkest Plum/Pink */
+  --section-bg: #fff0f6;
+  /* Softest Pink */
+  --accent-gold: #fcc200;
+  /* Vibrant Foil Gold */
+  --text-primary: #fff0f6;
+  --footer-bg: #1a0010;
+  /* Background Dark Plum */
+  --berry-pink: #d6008d;
+  /* The Logo's Vibrant Pink */
+  --text-charcoal: #2a011a;
+  /* Darkest Pink Text */
 
   /* Typography */
   --font-display: 'Cormorant Garamond', serif;
   --font-body: 'Lato', sans-serif;
 
-  /* Spacing */
+  /* Spacing & Shadows */
   --section-padding: 100px;
   --container-max-width: 1200px;
+  --shadow-color: rgba(214, 0, 141, 0.1);
 }
 
 * {
@@ -53,7 +60,13 @@ img {
 .container {
   max-width: var(--container-max-width);
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 40px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 24px;
+  }
 }
 
 .section {
@@ -94,9 +107,9 @@ img {
 
 .navbar.scrolled {
   padding: 0.8rem 0;
-  background: rgba(30, 14, 5, 0.98);
+  background: rgba(42, 1, 26, 0.98);
   backdrop-filter: blur(10px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 30px rgba(214, 0, 141, 0.3);
 }
 
 .nav-container {
@@ -185,34 +198,79 @@ img {
   color: #ffffff !important;
 }
 
-/* Mobile Menu */
 .mobile-menu {
-  display: flex;
   position: fixed;
   top: 0;
   right: -100%;
   width: 100%;
   height: 100vh;
   background: var(--hero-bg);
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  transition: right 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: right 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
   z-index: 999;
+  display: flex;
+  flex-direction: column;
 }
 
 .mobile-menu.open {
   right: 0;
 }
 
+.mobile-menu-inner {
+  padding: 100px 40px 60px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.mobile-nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
 .mobile-link {
   color: var(--text-primary);
   text-decoration: none;
-  font-size: 1.5rem;
+  font-size: 2.2rem;
   font-family: var(--font-display);
   letter-spacing: 2px;
   text-transform: uppercase;
+  font-weight: 500;
+  transition: padding-left 0.3s ease;
+}
+
+.mobile-link.active {
+  color: var(--accent-gold);
+}
+
+.mobile-link:hover {
+  padding-left: 10px;
+  color: var(--accent-gold);
+}
+
+.mobile-menu-footer {
+  border-top: 1px solid rgba(255, 240, 246, 0.1);
+  padding-top: 30px;
+}
+
+.mobile-contact-info p {
+  color: var(--text-primary);
+  font-size: 0.85rem;
+  margin-bottom: 15px;
+  opacity: 0.7;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mobile-socials {
+  display: flex;
+  gap: 20px;
+}
+
+.social-icon {
+  color: var(--accent-gold);
 }
 
 /* Buttons */
@@ -236,7 +294,7 @@ img {
 .gold-button:hover {
   filter: brightness(1.1);
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(201, 149, 108, 0.3);
+  box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
 }
 
 .outline-button {
@@ -280,15 +338,15 @@ img {
 
 @keyframes pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+    box-shadow: 0 0 0 0 rgba(214, 0, 141, 0.7);
   }
 
   70% {
-    box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+    box-shadow: 0 0 0 15px rgba(214, 0, 141, 0);
   }
 
   100% {
-    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    box-shadow: 0 0 0 0 rgba(214, 0, 141, 0);
   }
 }
 
@@ -299,7 +357,7 @@ img {
   right: 30px;
   width: 60px;
   height: 60px;
-  background-color: #25D366;
+  background-color: var(--berry-pink);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -359,13 +417,13 @@ img {
   padding: 40px 30px;
   border-radius: 12px;
   text-align: center;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 30px var(--shadow-color);
   transition: all 0.3s;
 }
 
 .tile:hover {
   transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 20px 40px var(--shadow-color);
 }
 
 .tile-icon {
@@ -449,7 +507,7 @@ img {
 }
 
 .footer-bottom {
-  border-top: 1px solid rgba(245, 230, 211, 0.1);
+  border-top: 1px solid rgba(255, 245, 248, 0.1);
   margin-top: 40px;
   padding-top: 40px;
   text-align: center;
