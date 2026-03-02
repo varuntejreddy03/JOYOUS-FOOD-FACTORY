@@ -32,9 +32,36 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: var(--berry-pink);
+  color: white;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--hero-bg);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--berry-pink);
+}
+
 body {
   font-family: var(--font-body);
-  background-color: var(--section-bg);
+  background-color: #faf7f8;
   color: var(--text-charcoal);
   line-height: 1.6;
   overflow-x: hidden;
@@ -91,6 +118,49 @@ img {
   font-family: var(--font-display);
   font-style: italic;
   color: var(--accent-gold);
+}
+
+/* Premium Back Button */
+.btn-back {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: var(--text-charcoal);
+  font-weight: 800;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 10px 24px;
+  border-radius: 50px;
+  background: white;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  margin: 0 auto 40px 0;
+  /* Forces left alignment even in centered containers */
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+  width: fit-content;
+  z-index: 10;
+  position: relative;
+}
+
+.btn-back:hover {
+  transform: translateX(-5px);
+  box-shadow: 0 8px 25px rgba(214, 0, 141, 0.15);
+  color: var(--berry-pink);
+  border-color: rgba(214, 0, 141, 0.1);
+}
+
+.btn-back.light-mode {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+}
+
+.btn-back.light-mode:hover {
+  background: white;
+  color: var(--hero-bg);
 }
 
 /* Navbar Base */

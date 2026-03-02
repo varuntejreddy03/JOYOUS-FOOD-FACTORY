@@ -44,7 +44,7 @@ const Gallery = () => {
     <div className="gallery-page">
       <section className="gallery-header section text-center fade-in">
         <div className="container">
-          <Link to="/" className="back-home-btn" style={{ marginBottom: '20px' }}>
+          <Link to="/" className="btn-back" style={{ marginBottom: '20px' }}>
             <ArrowLeft size={18} /> Back to Home
           </Link>
           <span className="label-caps">VISUAL STORYTELLING</span>
@@ -104,7 +104,7 @@ const Gallery = () => {
 
       <section className="instagram-cta section container text-center fade-in">
         <h2 className="section-title">Tag us on Instagram!</h2>
-        <p className="page-subtitle" style={{ marginBottom: '30px' }}>Share your Silver Bites moments with #SilverBites #ChocolateBeeda #JoyousFoodFactory</p>
+        <p className="page-subtitle" style={{ marginBottom: '30px' }}>Share your Silver Bites moments with #SilverBites #ChocolateBeeda</p>
         <a href="#" className="gold-button">Follow us on Instagram</a>
       </section>
 
@@ -112,26 +112,6 @@ const Gallery = () => {
         .gallery-page {
           background-color: var(--section-bg);
           padding-top: 100px;
-        }
-
-        .back-home-btn {
-          display: inline-flex;
-          align-items: center;
-          gap: 10px;
-          text-decoration: none;
-          color: var(--hero-bg);
-          font-weight: 700;
-          font-size: 0.85rem;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-          transition: all 0.3s ease;
-          opacity: 0.6;
-        }
-
-        .back-home-btn:hover {
-          opacity: 1;
-          color: var(--accent-gold);
-          transform: translateX(-5px);
         }
 
         .page-title {

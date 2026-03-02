@@ -8,9 +8,8 @@ const Footer = () => {
       <div className="container">
         <div className="footer-grid">
           <div className="footer-brand">
-            <Link to="/" className="footer-logo">JOYOUS FOOD FACTORY</Link>
-            <p className="label-caps" style={{ color: 'var(--accent-gold)', marginBottom: '1rem' }}>Silver Bites</p>
-            <p style={{ opacity: 0.7, fontSize: '0.9rem', marginBottom: '1.5rem', maxWidth: '300px' }}>
+            <Link to="/" className="footer-logo">SILVER BITES</Link>
+            <p style={{ opacity: 0.7, fontSize: '0.9rem', marginBottom: '1.5rem', maxWidth: '300px', marginTop: '1rem' }}>
               "Crafting moments of pure joy through artisan flavours and Indian tradition."
             </p>
             <div className="social-links" style={{ display: 'flex', gap: '15px' }}>
@@ -54,7 +53,7 @@ const Footer = () => {
         </div>
 
         <div className="footer-bottom">
-          <p>© 2026 Joyous Food Factory. All Rights Reserved. | <Link to="#">Privacy Policy</Link> | <Link to="#">Terms of Service</Link></p>
+          <p>© 2026 Silver Bites. All Rights Reserved. | <Link to="#">Privacy Policy</Link> | <Link to="#">Terms of Service</Link></p>
           <p style={{ marginTop: '10px', fontSize: '0.7rem' }}>Authorized Distributor of Telangana</p>
         </div>
       </div>

@@ -7,7 +7,7 @@ const Contact = () => {
     <div className="contact-page">
       <section className="contact-hero section fade-in">
         <div className="container text-center">
-          <Link to="/" className="back-home-btn" style={{ marginBottom: '20px' }}>
+          <Link to="/" className="btn-back" style={{ marginBottom: '20px' }}>
             <ArrowLeft size={18} /> Back to Home
           </Link>
           <span className="label-caps">GET IN TOUCH</span>
@@ -119,26 +119,6 @@ const Contact = () => {
         .contact-page {
           background-color: var(--section-bg);
           padding-top: 100px;
-        }
-
-        .back-home-btn {
-          display: inline-flex;
-          align-items: center;
-          gap: 10px;
-          text-decoration: none;
-          color: var(--hero-bg);
-          font-weight: 700;
-          font-size: 0.85rem;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-          transition: all 0.3s ease;
-          opacity: 0.6;
-        }
-
-        .back-home-btn:hover {
-          opacity: 1;
-          color: var(--accent-gold);
-          transform: translateX(-5px);
         }
 
         .page-title {

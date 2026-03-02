@@ -8,7 +8,7 @@ const About = () => {
       <section className="about-hero">
         <div className="diagonal-texture"></div>
         <div className="container">
-          <Link to="/" className="back-home-btn">
+          <Link to="/" className="btn-back light-mode">
             <ArrowLeft size={18} /> Back to Home
           </Link>
           <div className="hero-text-center fade-in">
@@ -22,9 +22,9 @@ const About = () => {
         <div className="container">
           <div className="about-split">
             <div className="about-text-col fade-in">
-              <p className="story-para">Joyous Food Factory started with one simple mission — to bring authentic Indian flavours to modern tables. As the Authorized Dealer of Telangana, we take pride in representing a product that is truly rooted in Indian culture while standing tall in contemporary gifting and lifestyle.</p>
+              <p className="story-para">Silver Bites started with one simple mission — to bring authentic Indian flavours to modern tables. As the Authorized Dealer of Telangana, we take pride in representing a product that is truly rooted in Indian culture while standing tall in contemporary gifting and lifestyle.</p>
 
-              <p className="story-para">Our signature product, the Chocolate Beeda, is a celebration of contrasts — the bold richness of premium chocolate meeting the aromatic warmth of traditional pan fillings. Each piece is handcrafted fresh at our Hyderabad facility, using only the finest ingredients — real saffron, fresh pistachios, pure gulkand, and premium chocolate couverture.</p>
+              <p className="story-para">Our signature product, the Chocolate Beeda, is a celebration of contrasts — the bold richness of premium chocolate meeting the aromatic warmth of traditional pan fillings. Each piece is made fresh at our Hyderabad facility, using only the finest ingredients — real saffron, fresh pistachios, pure gulkand, and premium chocolate couverture.</p>
 
               <p className="story-para">Silver Bites is our promise — a silver standard in every bite. Whether you're gifting at a wedding, celebrating a festival, or simply treating yourself, we craft each box with the same love and attention to detail.</p>
             </div>
@@ -33,7 +33,6 @@ const About = () => {
                 <div className="brand-card">
                   <span className="label-caps">The Brand</span>
                   <h3>Silver Bites</h3>
-                  <p style={{ color: 'var(--accent-gold)', fontWeight: 700 }}>by Joyous Food Factory</p>
                   <div className="card-divider" />
                   <p>Status: Authorized Distributor of Telangana</p>
                   <p>Location: KPHB, Hyderabad, Telangana</p>
@@ -59,8 +58,8 @@ const About = () => {
               <p>Real ingredients, real tradition, real flavour. No artificial shortcuts.</p>
             </div>
             <div className="value-item">
-              <h3 className="italic-accent">Craftsmanship</h3>
-              <p>Every piece made by hand, every single day.</p>
+              <h3 className="italic-accent">Quality</h3>
+              <p>Every piece checked for perfection, every single day.</p>
             </div>
             <div className="value-item">
               <h3 className="italic-accent">Innovation</h3>
@@ -76,29 +75,6 @@ const About = () => {
 
       <style jsx>{`
         .about-page { padding-top: 100px; background-color: var(--section-bg); }
-        .back-home-btn {
-          display: inline-flex;
-          align-items: center;
-          gap: 10px;
-          text-decoration: none;
-          color: white;
-          font-weight: 700;
-          font-size: 0.85rem;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-          margin-bottom: 30px;
-          transition: all 0.3s ease;
-          opacity: 0.8;
-          position: relative;
-          z-index: 10;
-        }
-
-        .back-home-btn:hover {
-          opacity: 1;
-          color: var(--accent-gold);
-          transform: translateX(-5px);
-        }
-
         .about-hero {
           height: 60vh;
           min-height: 500px;

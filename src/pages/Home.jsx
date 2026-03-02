@@ -12,7 +12,7 @@ const Home = () => {
             <div className="gold-rule"></div>
             <span className="label-caps italic-accent">Est. 2020</span>
             <h1 className="hero-h1">Blending Tradition <br /> with <span className="italic-accent">Modern Elegance</span></h1>
-            <p className="hero-p">Handcrafted Chocolate Beedas — where the age-old magic of Indian pan meets the richness of premium chocolate. Made fresh in Hyderabad, delivered across Telangana.</p>
+            <p className="hero-p">Artisanal Chocolate Beedas — where the age-old magic of Indian pan meets the richness of premium chocolate. Made fresh in Hyderabad, delivered across Telangana.</p>
             <div className="hero-actions">
               <a href="/products" className="gold-button">Explore Our Flavours</a>
               <a href="/gifting" className="outline-button">Corporate Gifting Enquiry</a>
@@ -32,7 +32,7 @@ const Home = () => {
       <section className="flavors-strip-container" style={{ paddingTop: '80px', backgroundColor: 'var(--section-bg)' }}>
         <div className="container text-center">
           <h2 className="section-title">Our Signature Chocolate Beeda Flavours</h2>
-          <p className="page-subtitle" style={{ marginBottom: '40px', opacity: 0.7 }}>Each piece handcrafted fresh — packed with tradition, bursting with flavour.</p>
+          <p className="page-subtitle" style={{ marginBottom: '40px', opacity: 0.7 }}>Each piece made fresh — packed with tradition, bursting with flavour.</p>
         </div>
         <FlavorsStrip />
         <div className="container text-center" style={{ marginTop: '30px' }}>
@@ -46,8 +46,8 @@ const Home = () => {
           <div className="legacy-text">
             <span className="label-caps">OUR STORY</span>
             <h2 className="section-title">A Legacy of Taste, Reimagined</h2>
-            <p>At Joyous Food Factory, we believe that some of India's finest flavours deserve a modern stage. Our Chocolate Beeda is born from that belief — taking the beloved tradition of sweet pan and wrapping it in the finest chocolate shell.</p>
-            <p>Every bite carries the warmth of rose petals, the crunch of fresh pistachios, the aroma of saffron, and the richness of premium chocolate — all crafted by hand, every single day, right here in Hyderabad.</p>
+            <p>At Silver Bites, we believe that some of India's finest flavours deserve a modern stage. Our Chocolate Beeda is born from that belief — taking the beloved tradition of sweet pan and wrapping it in the finest chocolate shell.</p>
+            <p>Every bite carries the warmth of rose petals, the crunch of fresh pistachios, the aroma of saffron, and the richness of premium chocolate — all blended to perfection, every single day, right here in Hyderabad.</p>
             <a href="/about" className="learn-more">Read Our Full Story →</a>
           </div>
           <div className="legacy-image-frame">
@@ -61,6 +61,33 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Auto-scrolling Gallery Section */}
+      <section className="signature-gallery section" style={{ paddingBottom: 0, backgroundColor: 'white' }}>
+        <div className="container text-center" style={{ marginBottom: '60px' }}>
+          <span className="label-caps">OUR SIGNATURE FLAVOURS</span>
+          <h2 className="section-title">Visual Symphony of Taste</h2>
+          <p className="page-subtitle">A glimpse into our world of handcrafted artisanal chocolate beedas.</p>
+        </div>
+
+        <div className="marquee-wrapper">
+          <div className="marquee-content">
+            {/* Double the images for seamless loop */}
+            {[...Array(2)].map((_, i) => (
+              <React.Fragment key={i}>
+                <div className="marquee-item"><img src="/2/B (130) copy.jpg" alt="Rose" /></div>
+                <div className="marquee-item"><img src="/1/B (71) copy.jpg" alt="Chocolate" /></div>
+                <div className="marquee-item"><img src="/4/B (268) copy.jpg" alt="Pista" /></div>
+                <div className="marquee-item"><img src="/5/B (352) copy.jpg" alt="Vanilla" /></div>
+                <div className="marquee-item"><img src="/4/B (292) copy.jpg" alt="Kesar" /></div>
+                <div className="marquee-item"><img src="/Combo/B (382) copy.jpg" alt="Combo" /></div>
+                <div className="marquee-item"><img src="/5/B (344) copy.jpg" alt="Mango" /></div>
+                <div className="marquee-item"><img src="/1/B (76) copy.jpg" alt="Detail" /></div>
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Why Choose Us */}
       <section className="why-choose section" style={{ backgroundColor: 'white' }}>
         <div className="container">
@@ -69,11 +96,6 @@ const Home = () => {
           </header>
 
           <div className="tiles-grid">
-            <div className="tile fade-in">
-              <span className="tile-icon">🍫</span>
-              <h3>100% Handcrafted</h3>
-              <p>Every beeda made fresh by hand — no machines, no shortcuts.</p>
-            </div>
             <div className="tile fade-in" style={{ animationDelay: '0.1s' }}>
               <span className="tile-icon">🌿</span>
               <h3>Premium Ingredients</h3>
@@ -189,6 +211,58 @@ const Home = () => {
           width: 60px; height: 60px;
           border-top: 3px solid var(--accent-gold);
           border-left: 3px solid var(--accent-gold);
+        }
+
+        .marquee-wrapper {
+          overflow: hidden;
+          width: 100%;
+          position: relative;
+          background: #fff;
+          padding: 40px 0;
+        }
+
+        .marquee-content {
+          display: flex;
+          width: max-content;
+          animation: marquee-scroll 40s linear infinite;
+        }
+
+        .marquee-item {
+          flex-shrink: 0;
+          width: 350px;
+          height: 350px;
+          margin-right: 20px;
+          border-radius: 12px;
+          overflow: hidden;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .marquee-item img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: transform 0.6s ease;
+        }
+
+        .marquee-wrapper:hover .marquee-content {
+          animation-play-state: paused;
+        }
+
+        .marquee-item:hover img {
+          transform: scale(1.1);
+        }
+
+        @keyframes marquee-scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(calc(-50% - 10px)); }
+        }
+
+        @media (max-width: 768px) {
+          .marquee-item { width: 250px; height: 250px; margin-right: 15px; }
+          @keyframes marquee-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 7.5px)); }
+          }
         }
 
         @media (max-width: 992px) {

@@ -25,14 +25,17 @@ const Navbar = () => {
     { name: 'Contact', path: '/contact' },
   ]
 
+  // Pages with a dark hero section where the navbar should start transparent
   const isLightHero = ['/', '/about'].includes(location.pathname)
 
+  // If we're not on a hero page, always apply the scrolled (dark background) styling
+  const forceScrolled = isScrolled || !isLightHero
+
   return (
-    <nav className={`navbar ${isScrolled ? 'scrolled' : ''} ${isLightHero ? 'nav-light' : ''}`}>
+    <nav className={`navbar ${forceScrolled ? 'scrolled' : ''} nav-light`}>
       <div className="nav-container">
         <Link to="/" className="nav-logo">
-          JOYOUS FOOD FACTORY
-          <span className="logo-subtitle label-caps">SILVER BITES</span>
+          SILVER BITES
         </Link>
 
         {/* Desktop Menu */}
