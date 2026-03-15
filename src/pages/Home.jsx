@@ -5,14 +5,14 @@ const Home = () => {
   return (
     <div className="home-page">
       {/* Hero Section */}
-      <section className="hero">
+      <section className="hero" id="home">
         <div className="diagonal-texture"></div>
         <div className="container hero-grid">
           <div className="hero-text fade-in">
             <div className="gold-rule"></div>
             <span className="label-caps italic-accent">Est. 2020</span>
             <h1 className="hero-h1">Blending Tradition <br /> with <span className="italic-accent">Modern Elegance</span></h1>
-            <p className="hero-p">Artisanal Chocolate Beedas — where the age-old magic of Indian pan meets the richness of premium chocolate. Made fresh in Hyderabad, delivered across Telangana.</p>
+            <p className="hero-p">Artisanal Chocolate Beedas — where the age-old magic of Indian pan meets the richness of premium chocolate. Made fresh in Hyderabad, delivered across India.</p>
             <div className="hero-actions">
               <a href="/products" className="gold-button">Explore Our Flavours</a>
               <a href="/gifting" className="outline-button">Corporate Gifting Enquiry</a>

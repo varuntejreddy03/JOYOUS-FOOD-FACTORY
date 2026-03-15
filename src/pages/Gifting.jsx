@@ -64,7 +64,7 @@ const Gifting = () => {
               <li>✦ Box size: 4pc | 8pc | 12pc | 24pc | Custom</li>
               <li>✦ Custom branding & logo on packaging</li>
               <li>✦ Personalized message cards</li>
-              <li>✦ Delivery across Hyderabad & Telangana</li>
+              <li>✦ Delivery across India</li>
               <li>✦ Bulk MOQ available on request</li>
             </ul>
           </div>
@@ -72,8 +72,8 @@ const Gifting = () => {
             <h3>Ready to Place a Bulk Order?</h3>
             <p>Call or WhatsApp us directly — we'll handle everything from flavour selection to delivery.</p>
             <div className="cta-btns">
-              <a href="https://wa.me/917013886521" className="gold-button">WhatsApp 7013886521</a>
-              <a href="mailto:Joyousfoodshyd@gmail.com" className="outline-button">Email Us</a>
+              <a href="https://wa.me/919848574748" className="gold-button">WhatsApp 9848574748</a>
+              <a href="mailto:joyousfoodshyd@gmail.com" className="outline-button">Email Us</a>
             </div>
           </div>
         </div>

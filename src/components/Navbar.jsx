@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, Instagram, Phone, Mail, MapPin, ShoppingCart } from 'lucide-react'
 import { useCart } from '../context/CartContext'
+import logo from '../assets/joyous_logo_transparent.png'
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -34,9 +35,37 @@ const Navbar = () => {
   return (
     <nav className={`navbar ${forceScrolled ? 'scrolled' : ''} nav-light`}>
       <div className="nav-container">
-        <Link to="/" className="nav-logo">
-          SILVER BITES
-        </Link>
+        <a href='#home' style={{ display: 'flex', alignItems: 'center' }}>
+          <img
+            src={logo}
+            alt='Joyous Food Factory'
+            style={{
+              height: '75px',
+              width: 'auto',
+              objectFit: 'contain',
+              background: 'transparent',
+              transition: 'transform 0.3s ease, filter 0.3s ease',
+              filter: 'drop-shadow(0px 0px 8px rgba(212, 175, 55, 0.4))'
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.transform = 'scale(1.1)'
+              e.currentTarget.style.filter = 'drop-shadow(0px 0px 16px rgba(233, 30, 99, 0.7))'
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.transform = 'scale(1)'
+              e.currentTarget.style.filter = 'drop-shadow(0px 0px 8px rgba(212, 175, 55, 0.4))'
+            }}
+          />
+        </a>
+
+        {/* Vertical Divider */}
+        <div style={{
+          width: '1px',
+          height: '35px',
+          background: 'linear-gradient(to bottom, transparent, #D4AF37, transparent)',
+          margin: '0 24px',
+          display: 'block'
+        }} className="desktop-only" />
 
         {/* Desktop Menu */}
         <div className="nav-links">
@@ -86,12 +115,12 @@ const Navbar = () => {
           <div className="mobile-menu-footer">
             <div className="mobile-contact-info">
               <p><MapPin size={16} /> KPHB, Hyderabad</p>
-              <p><Phone size={16} /> +91 70138 86521</p>
-              <p><Mail size={16} /> Joyousfoodshyd@gmail.com</p>
+              <p><Phone size={16} /> +91 98485 74748</p>
+              <p><Mail size={16} /> joyousfoodshyd@gmail.com</p>
             </div>
             <div className="mobile-socials">
               <a href="#" className="social-icon"><Instagram size={20} /></a>
-              <a href="https://wa.me/917013886521" className="social-icon"><Phone size={20} /></a>
+              <a href="https://wa.me/919848574748" className="social-icon"><Phone size={20} /></a>
             </div>
           </div>
         </div>

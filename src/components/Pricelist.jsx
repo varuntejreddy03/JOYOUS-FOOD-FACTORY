@@ -56,9 +56,9 @@ const Pricelist = () => {
 
   const handleFinalOrder = (e) => {
     e.preventDefault();
-    const phoneNumber = "917013886521";
+    const phoneNumber = "919848574748";
 
-    let message = "🛍️ *New Order from Silver Bites*\n\n";
+    let message = "🛍️ *New Order from Joyous Food Factory*\n\n";
     message += `👤 *Customer Details:*\n`;
     message += `Name: ${formData.name}\n`;
     message += `Phone: ${formData.phone}\n`;

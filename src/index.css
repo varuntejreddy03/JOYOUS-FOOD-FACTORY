@@ -2,8 +2,8 @@
 
 :root {
   /* Brand Colors */
-  --hero-bg: #2a011a;
-  /* Darkest Plum/Pink */
+  --hero-bg: #3B0029;
+  /* Dark Maroon as requested */
   --section-bg: #fff0f6;
   /* Softest Pink */
   --accent-gold: #fcc200;
@@ -100,6 +100,12 @@ img {
   padding: var(--section-padding) 0;
 }
 
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none !important;
+  }
+}
+
 .text-center {
   text-align: center;
 }
@@ -170,14 +176,14 @@ img {
   left: 0;
   width: 100%;
   z-index: 1000;
-  padding: 1.5rem 0;
+  padding: 1rem 0;
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
   background: transparent;
 }
 
 .navbar.scrolled {
-  padding: 0.8rem 0;
-  background: rgba(42, 1, 26, 0.98);
+  padding: 0.5rem 0;
+  background: rgba(59, 0, 41, 0.98);
   backdrop-filter: blur(10px);
   box-shadow: 0 4px 30px rgba(214, 0, 141, 0.3);
 }
@@ -191,19 +197,9 @@ img {
   padding: 0 2rem;
 }
 
-/* Logo Styling */
-.nav-logo {
-  font-family: var(--font-display);
-  color: var(--hero-bg);
-  /* Dark by default */
-  text-decoration: none;
-  font-size: 1.8rem;
-  font-weight: 700;
-  letter-spacing: 4px;
-  display: flex;
-  flex-direction: column;
-  line-height: 1;
-  transition: color 0.3s ease;
+/* Logo Styling - Handled via inline styles in Navbar */
+.footer-logo .logo-img {
+  height: 80px;
 }
 
 .logo-subtitle {

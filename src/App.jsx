@@ -28,7 +28,7 @@ function App() {
 
           {/* Floating WhatsApp Button */}
           <a
-            href="https://wa.me/917013886521"
+            href="https://wa.me/919848574748"
             className="whatsapp-float"
             target="_blank"
             rel="noopener noreferrer"

@@ -8,7 +8,9 @@ const Footer = () => {
       <div className="container">
         <div className="footer-grid">
           <div className="footer-brand">
-            <Link to="/" className="footer-logo">SILVER BITES</Link>
+            <Link to="/" className="footer-logo">
+              <img src="/logo.png" alt="Joyous Food Factory" className="logo-img" />
+            </Link>
             <p style={{ opacity: 0.7, fontSize: '0.9rem', marginBottom: '1.5rem', maxWidth: '300px', marginTop: '1rem' }}>
               "Crafting moments of pure joy through artisan flavours and Indian tradition."
             </p>
@@ -16,7 +18,7 @@ const Footer = () => {
               <a href="#" className="nav-link"><Instagram size={20} /></a>
               <a href="#" className="nav-link"><Facebook size={20} /></a>
               <a href="#" className="nav-link"><Linkedin size={20} /></a>
-              <a href="https://wa.me/917013886521" className="nav-link"><Phone size={20} /></a>
+              <a href="https://wa.me/919848574748" className="nav-link"><Phone size={20} /></a>
             </div>
           </div>
 
@@ -46,15 +48,15 @@ const Footer = () => {
           <div className="footer-contact">
             <h4 className="footer-heading">Contact</h4>
             <p><MapPin size={18} className="italic-accent" /> 9th Gokul Plots, KPHB, Hyderabad</p>
-            <p><Phone size={18} className="italic-accent" /> 7013886521</p>
-            <p><Mail size={18} className="italic-accent" /> Joyousfoodshyd@gmail.com</p>
+            <p><Phone size={18} className="italic-accent" /> 9848574748</p>
+            <p><Mail size={18} className="italic-accent" /> joyousfoodshyd@gmail.com</p>
             <p><Clock size={18} className="italic-accent" /> Mon–Sun: 9:30 AM – 8:00 PM</p>
           </div>
         </div>
 
         <div className="footer-bottom">
           <p>© 2026 Silver Bites. All Rights Reserved. | <Link to="#">Privacy Policy</Link> | <Link to="#">Terms of Service</Link></p>
-          <p style={{ marginTop: '10px', fontSize: '0.7rem' }}>Authorized Distributor of Telangana</p>
+          <p style={{ marginTop: '10px', fontSize: '0.7rem' }}>Authorized Distributor of Andhra Pradesh & Telangana</p>
         </div>
       </div>
     </footer>

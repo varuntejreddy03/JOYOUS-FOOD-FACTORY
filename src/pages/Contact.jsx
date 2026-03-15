@@ -12,7 +12,7 @@ const Contact = () => {
           </Link>
           <span className="label-caps">GET IN TOUCH</span>
           <h1 className="page-title">We'd Love to <span className="italic-accent">Hear from You</span></h1>
-          <p className="page-subtitle">For orders, queries, or just to say hello—we reach out across Hyderabad & Telangana.</p>
+          <p className="page-subtitle">For orders, queries, or just to say hello—we reach out across India.</p>
         </div>
       </section>
 
@@ -32,7 +32,7 @@ const Contact = () => {
                 <div className="info-icon"><MessageSquare size={24} /></div>
                 <div className="info-text">
                   <h3>Phone / WhatsApp</h3>
-                  <p>Primary: 7013886521</p>
+                  <p>Primary: 9848574748</p>
                   <p style={{ fontSize: '0.8rem', opacity: 0.6 }}>(Available 9:30 AM – 8:00 PM)</p>
                 </div>
               </div>
@@ -41,7 +41,7 @@ const Contact = () => {
                 <div className="info-icon"><Mail size={24} /></div>
                 <div className="info-text">
                   <h3>Email Us</h3>
-                  <p>Joyousfoodshyd@gmail.com</p>
+                  <p>joyousfoodshyd@gmail.com</p>
                 </div>
               </div>
 
@@ -108,7 +108,7 @@ const Contact = () => {
               <div className="text-center">
                 <MapPin size={48} color="var(--accent-gold)" style={{ marginBottom: '20px' }} />
                 <p>Interactive Map Component: KPHB, Hyderabad</p>
-                <p style={{ fontSize: '0.8rem', opacity: 0.6 }}>"Visit us or place your order online — we deliver across Hyderabad & Telangana"</p>
+                <p style={{ fontSize: '0.8rem', opacity: 0.6 }}>"Visit us or place your order online — we deliver across India"</p>
               </div>
             </div>
           </div>
