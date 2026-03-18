@@ -35,37 +35,15 @@ const Navbar = () => {
   return (
     <nav className={`navbar ${forceScrolled ? 'scrolled' : ''} nav-light`}>
       <div className="nav-container">
-        <a href='#home' style={{ display: 'flex', alignItems: 'center' }}>
-          <img
-            src={logo}
-            alt='Joyous Food Factory'
-            style={{
-              height: '75px',
-              width: 'auto',
-              objectFit: 'contain',
-              background: 'transparent',
-              transition: 'transform 0.3s ease, filter 0.3s ease',
-              filter: 'drop-shadow(0px 0px 8px rgba(212, 175, 55, 0.4))'
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.transform = 'scale(1.1)'
-              e.currentTarget.style.filter = 'drop-shadow(0px 0px 16px rgba(233, 30, 99, 0.7))'
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.transform = 'scale(1)'
-              e.currentTarget.style.filter = 'drop-shadow(0px 0px 8px rgba(212, 175, 55, 0.4))'
-            }}
-          />
-        </a>
-
-        {/* Vertical Divider */}
-        <div style={{
-          width: '1px',
-          height: '35px',
-          background: 'linear-gradient(to bottom, transparent, #D4AF37, transparent)',
-          margin: '0 24px',
-          display: 'block'
-        }} className="desktop-only" />
+        <Link to='/' className="navbar-logo-link">
+          <div className="navbar-logo-crop">
+            <img
+              src={logo}
+              alt='Joyous Food Factory'
+              className="navbar-logo-img"
+            />
+          </div>
+        </Link>
 
         {/* Desktop Menu */}
         <div className="nav-links">

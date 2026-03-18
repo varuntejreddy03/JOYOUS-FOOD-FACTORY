@@ -33,7 +33,8 @@ const Contact = () => {
                 <div className="info-text">
                   <h3>Phone / WhatsApp</h3>
                   <p>Primary: 9848574748</p>
-                  <p style={{ fontSize: '0.8rem', opacity: 0.6 }}>(Available 9:30 AM – 8:00 PM)</p>
+                  <p>Alternate: 9666255559</p>
+                  <p style={{ fontSize: '0.8rem', opacity: 0.6 }}>(Available 9:00 AM – 6:00 PM)</p>
                 </div>
               </div>
 
@@ -50,7 +51,7 @@ const Contact = () => {
                 <div className="info-text">
                   <h3>Business Hours</h3>
                   <p>Monday – Sunday</p>
-                  <p>9:30 AM – 8:00 PM (Open all 7 days)</p>
+                  <p>9:00 AM – 6:00 PM (Open all 7 days)</p>
                 </div>
               </div>
             </div>

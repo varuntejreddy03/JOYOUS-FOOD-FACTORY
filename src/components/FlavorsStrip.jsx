@@ -13,7 +13,6 @@ const FlavorsStrip = () => {
   return (
     <section className="flavors-strip section">
       <div className="container">
-        <h2 className="section-title text-center" style={{ marginBottom: '3rem' }}>Our Signature Flavours</h2>
         <div className="flavors-scroll-container">
           <div className="flavors-track">
             {flavors.map((flavor, index) => (
@@ -79,6 +78,7 @@ const FlavorsStrip = () => {
           text-transform: uppercase;
           letter-spacing: 1px;
           font-size: 0.9rem;
+          color: inherit;
         }
 
         @media (max-width: 768px) {

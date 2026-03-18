@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Minus, ShoppingCart, ChevronRight, X, Star, Zap } from 'lucide-react';
+import { Plus, Minus, ShoppingCart, ChevronRight, X, Star, Zap, Pencil, Check } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 
 const domesticProducts = [
@@ -83,8 +83,23 @@ const Pricelist = () => {
     setIsModalOpen(false);
   };
 
+  const [editingId, setEditingId] = useState(null);
+  const [editQty, setEditQty] = useState(1);
+
+  const handleEditSave = (product) => {
+    const current = getItemQuantity(product.id);
+    const diff = editQty - current;
+    if (diff > 0) for (let i = 0; i < diff; i++) addToCart(product);
+    else if (diff < 0) for (let i = 0; i < Math.abs(diff); i++) removeFromCart(product.id);
+    setEditingId(null);
+  };
+
+  const isCommercial = (id) => id.startsWith('com-');
+
   const ProductCard = ({ product }) => {
     const quantity = getItemQuantity(product.id);
+    const isEditing = editingId === product.id;
+    const commercial = isCommercial(product.id);
 
     return (
       <div className="premium-product-card fade-in">
@@ -96,6 +111,9 @@ const Pricelist = () => {
               {product.tag}
             </div>
           )}
+          <div className={`shipping-tag ${commercial ? 'free-shipping' : 'shipping-extra'}`}>
+            {commercial ? '🚚 Free Shipping' : '📦 Shipping Extra'}
+          </div>
         </div>
         <div className="card-info-content">
           <div className="title-area">
@@ -110,14 +128,24 @@ const Pricelist = () => {
 
             <div className="action-container">
               {quantity === 0 ? (
-                <button className="add-to-cart-btn" onClick={() => addToCart(product)}>
-                  ADD
-                </button>
+                <button className="add-to-cart-btn" onClick={() => addToCart(product)}>ADD</button>
+              ) : isEditing ? (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <div className="quantity-control-pill">
+                    <button onClick={() => setEditQty(q => Math.max(1, q - 1))} className="qty-minus"><Minus size={14} /></button>
+                    <span className="qty-value">{editQty}</span>
+                    <button onClick={() => setEditQty(q => q + 1)} className="qty-plus"><Plus size={14} /></button>
+                  </div>
+                  <button className="edit-save-btn" onClick={() => handleEditSave(product)} title="Save"><Check size={14} /></button>
+                </div>
               ) : (
-                <div className="quantity-control-pill">
-                  <button onClick={() => removeFromCart(product.id)} className="qty-minus"><Minus size={14} /></button>
-                  <span className="qty-value">{quantity}</span>
-                  <button onClick={() => addToCart(product)} className="qty-plus"><Plus size={14} /></button>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <div className="quantity-control-pill">
+                    <button onClick={() => removeFromCart(product.id)} className="qty-minus"><Minus size={14} /></button>
+                    <span className="qty-value">{quantity}</span>
+                    <button onClick={() => addToCart(product)} className="qty-plus"><Plus size={14} /></button>
+                  </div>
+                  <button className="edit-icon-btn" onClick={() => { setEditingId(product.id); setEditQty(quantity); }} title="Edit"><Pencil size={13} /></button>
                 </div>
               )}
             </div>
@@ -381,6 +409,44 @@ const Pricelist = () => {
         .product-badge.bulk-save { background: #2979ff; color: #fff; }
         .product-badge.most-popular { background: #d6008d; color: #fff; }
         .product-badge.classic { background: #333; color: #fff; }
+
+        .shipping-tag {
+          position: absolute;
+          bottom: 8px;
+          right: 8px;
+          padding: 3px 9px;
+          border-radius: 6px;
+          font-size: 0.6rem;
+          font-weight: 700;
+          z-index: 2;
+          letter-spacing: 0.3px;
+        }
+        .shipping-tag.shipping-extra { background: rgba(255,255,255,0.92); color: #c0392b; border: 1px solid rgba(192,57,43,0.3); }
+        .shipping-tag.free-shipping { background: rgba(255,255,255,0.92); color: #27ae60; border: 1px solid rgba(39,174,96,0.3); }
+
+        .edit-icon-btn {
+          background: #f5f5f5;
+          border: 1px solid #ddd;
+          color: #555;
+          width: 30px; height: 30px;
+          border-radius: 8px;
+          display: flex; align-items: center; justify-content: center;
+          cursor: pointer;
+          transition: all 0.2s;
+          flex-shrink: 0;
+        }
+        .edit-icon-btn:hover { background: #d6008d; color: white; border-color: #d6008d; }
+
+        .edit-save-btn {
+          background: #27ae60;
+          border: none;
+          color: white;
+          width: 30px; height: 30px;
+          border-radius: 8px;
+          display: flex; align-items: center; justify-content: center;
+          cursor: pointer;
+          flex-shrink: 0;
+        }
 
         .card-info-content {
           padding: 0 4px 4px;
