@@ -3,17 +3,17 @@ import { Plus, Minus, ShoppingCart, ChevronRight, X, Star, Zap, Pencil, Check } 
 import { useCart } from '../context/CartContext';
 
 const domesticProducts = [
-  { id: 'dom-rose', name: 'Rose Flavour', pack: 'Pack of 1 × 25 pcs', price: 450, image: '/2/B (130) copy.jpg', tag: 'Bestseller' },
+  { id: 'dom-rose', name: 'Rose Flavour', pack: 'Pack of 1 × 25 pcs', price: 450, image: '/3/B (169) copy.jpg', tag: 'Bestseller' },
   { id: 'dom-choco', name: 'Chocolate Flavour', pack: 'Pack of 1 × 25 pcs', price: 450, image: '/1/B (71) copy.jpg', tag: 'Classic' },
-  { id: 'dom-pista', name: 'Pista Flavour', pack: 'Pack of 1 × 25 pcs', price: 450, image: '/4/B (268) copy.jpg' },
+  { id: 'dom-pista', name: 'Pista Flavour', pack: 'Pack of 1 × 25 pcs', price: 450, image: '/2/B (157) copy.jpg' },
   { id: 'dom-vanilla', name: 'Vanilla Flavour', pack: 'Pack of 1 × 25 pcs', price: 450, image: '/5/B (352) copy.jpg', tag: 'New' },
   { id: 'dom-kesar', name: 'Kesar Badam Flavour', pack: 'Pack of 1 × 25 pcs', price: 450, image: '/4/B (292) copy.jpg' },
 ];
 
 const commercialProducts = [
-  { id: 'com-rose', name: 'Rose Flavour', pack: 'Pack of 1 × 50 pcs', price: 850, image: '/2/B (130) copy.jpg', tag: 'Bulk Save' },
+  { id: 'com-rose', name: 'Rose Flavour', pack: 'Pack of 1 × 50 pcs', price: 850, image: '/3/B (169) copy.jpg', tag: 'Bulk Save' },
   { id: 'com-choco', name: 'Chocolate Flavour', pack: 'Pack of 1 × 50 pcs', price: 850, image: '/1/B (71) copy.jpg', tag: 'Most Popular' },
-  { id: 'com-pista', name: 'Pista Flavour', pack: 'Pack of 1 × 50 pcs', price: 850, image: '/4/B (268) copy.jpg' },
+  { id: 'com-pista', name: 'Pista Flavour', pack: 'Pack of 1 × 50 pcs', price: 850, image: '/2/B (157) copy.jpg' },
   { id: 'com-vanilla', name: 'Vanilla Flavour', pack: 'Pack of 1 × 50 pcs', price: 850, image: '/5/B (352) copy.jpg' },
   { id: 'com-kesar', name: 'Kesar Badam Flavour', pack: 'Pack of 1 × 50 pcs', price: 850, image: '/4/B (292) copy.jpg' },
 ];

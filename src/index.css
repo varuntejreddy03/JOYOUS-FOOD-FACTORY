@@ -199,10 +199,9 @@ img {
 
 /* Logo Styling */
 .footer-logo .logo-img {
-  height: 80px;
+  height: 250px;
   width: auto;
   background: transparent;
-  mix-blend-mode: screen;
 }
 
 /* Navbar Logo */
@@ -213,62 +212,37 @@ img {
   text-decoration: none;
 }
 
-/*
-  Logo PNG is 640x640 but content (icon + text) lives at:
-  X: 72–568  Y: 240–396  →  496w × 156h  (aspect ~3.18:1)
-  Container height = 85px  →  image width = 85 * (640/156) ≈ 348px
-  offset-x = -(72/640)*348 ≈ -39px
-  offset-y = -(240/640)*348 ≈ -131px
-  content display width = 348 * (496/640) ≈ 270px
-*/
-.navbar-logo-crop {
-  --img-w: 348px;
-  --off-x: -39px;
-  --off-y: -131px;
-  width: calc(var(--img-w) * 496 / 640);
-  height: 85px;
-  overflow: hidden;
-  position: relative;
-  flex-shrink: 0;
-  filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.5));
-  transition: filter 0.3s ease, transform 0.3s ease;
-}
-
-.navbar-logo-crop:hover {
-  filter: drop-shadow(0 0 16px rgba(212, 175, 55, 0.9)) drop-shadow(0 0 6px rgba(214, 0, 141, 0.45));
-  transform: scale(1.04);
-}
 
 .navbar-logo-img {
-  position: absolute;
-  width: var(--img-w);
-  height: auto;
-  top: var(--off-y);
-  left: var(--off-x);
+  height: 140px;
+  width: auto;
   display: block;
-  background: transparent;
-  border: none;
-  outline: none;
-  max-width: none;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  filter: drop-shadow(0 4px 12px rgba(212, 175, 55, 0.35));
+  margin: -40px 0; /* Aggressive negative margin to maintain compact nav */
+  position: relative;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.navbar-logo-img:hover {
+  transform: scale(1.08) translateY(-2px);
+  filter: drop-shadow(0 8px 25px rgba(212, 175, 55, 0.7));
+}
+
+.navbar.scrolled .navbar-logo-img {
+  height: 110px;
+  margin: -30px 0;
 }
 
 @media (max-width: 768px) {
-  .navbar-logo-crop {
-    --img-w: 256px;   /* 63 * 640/156 */
-    --off-x: -29px;
-    --off-y: -96px;
-    height: 63px;
-    width: calc(var(--img-w) * 496 / 640);
+  .navbar-logo-img {
+    height: 110px;
+    margin: -30px 0;
   }
-}
-
-@media (max-width: 400px) {
-  .navbar-logo-crop {
-    --img-w: 205px;   /* 50 * 640/156 */
-    --off-x: -23px;
-    --off-y: -77px;
-    height: 50px;
-    width: calc(var(--img-w) * 496 / 640);
+  .navbar.scrolled .navbar-logo-img {
+    height: 90px;
+    margin: -25px 0;
   }
 }
 

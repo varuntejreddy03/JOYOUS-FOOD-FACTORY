@@ -34,7 +34,7 @@ const Footer = () => {
         <div className="footer-grid">
           <div className="footer-brand">
             <Link to="/" className="footer-logo">
-              <img src="/joyous_logo_transparent.png" alt="Joyous Food Factory" className="logo-img" style={{ mixBlendMode: 'screen' }} />
+              <img src="/logo-removebg-preview.png" alt="Joyous Food Factory" className="logo-img" />
             </Link>
             <p style={{ opacity: 0.7, fontSize: '0.9rem', marginBottom: '1.5rem', maxWidth: '300px', marginTop: '1rem' }}>
               "Crafting moments of pure joy through artisan flavours and Indian tradition."

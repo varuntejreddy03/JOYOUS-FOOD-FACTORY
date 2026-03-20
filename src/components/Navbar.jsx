@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, Instagram, Phone, Mail, MapPin, ShoppingCart } from 'lucide-react'
 import { useCart } from '../context/CartContext'
-import logo from '../assets/joyous_logo_transparent.png'
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -36,13 +35,11 @@ const Navbar = () => {
     <nav className={`navbar ${forceScrolled ? 'scrolled' : ''} nav-light`}>
       <div className="nav-container">
         <Link to='/' className="navbar-logo-link">
-          <div className="navbar-logo-crop">
-            <img
-              src={logo}
-              alt='Joyous Food Factory'
-              className="navbar-logo-img"
-            />
-          </div>
+          <img
+            src="/logo-removebg-preview.png"
+            alt='Joyous Food Factory'
+            className="navbar-logo-img"
+          />
         </Link>
 
         {/* Desktop Menu */}
