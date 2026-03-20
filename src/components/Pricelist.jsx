@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Minus, ShoppingCart, ChevronRight, X, Star, Zap, Pencil, Check } from 'lucide-react';
+import { Plus, Minus, ShoppingCart, ChevronRight, X, Star, Zap, Pencil, Check, ChevronUp, ChevronDown, Trash2 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
 
 const domesticProducts = [
@@ -56,6 +56,7 @@ const Pricelist = () => {
 
   const handleFinalOrder = (e) => {
     e.preventDefault();
+    if (cartCount === 0) return;
     const phoneNumber = "919848574748";
 
     let message = "🛍️ *New Order from Joyous Food Factory*\n\n";
@@ -85,6 +86,15 @@ const Pricelist = () => {
 
   const [editingId, setEditingId] = useState(null);
   const [editQty, setEditQty] = useState(1);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const allProducts = [...domesticProducts, ...commercialProducts];
+  const getProduct = (id) => allProducts.find(p => p.id === id);
+
+  const handleRemoveAll = (id) => {
+    const qty = getItemQuantity(id);
+    for (let i = 0; i < qty; i++) removeFromCart(id);
+  };
 
   const handleEditSave = (product) => {
     const current = getItemQuantity(product.id);
@@ -221,6 +231,29 @@ const Pricelist = () => {
               <button className="panel-close" onClick={() => setIsModalOpen(false)}><X size={20} /></button>
             </div>
 
+            {/* Order Items — editable */}
+            <div className="modal-order-items">
+              {cart.map(item => {
+                const prod = getProduct(item.id);
+                return (
+                  <div key={item.id} className="modal-item-row">
+                    <img src={prod?.image} alt={item.name} className="modal-item-img" />
+                    <div className="modal-item-info">
+                      <p className="modal-item-name">{item.name}</p>
+                      <p className="modal-item-pack">{item.pack}</p>
+                      <p className="modal-item-sub">₹{item.price * item.quantity}</p>
+                    </div>
+                    <div className="modal-qty-ctrl">
+                      <button onClick={() => removeFromCart(item.id)} disabled={item.quantity === 0}><Minus size={13} /></button>
+                      <span>{item.quantity}</span>
+                      <button onClick={() => addToCart(prod)}><Plus size={13} /></button>
+                      <button className="modal-remove-btn" onClick={() => handleRemoveAll(item.id)} title="Remove"><Trash2 size={13} /></button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
             <form onSubmit={handleFinalOrder} className="checkout-form-stack">
               <div className="input-field">
                 <label>Receiver's Name</label>
@@ -263,8 +296,8 @@ const Pricelist = () => {
                 </div>
               </div>
 
-              <button type="submit" className="final-whatsapp-btn">
-                Confirm & Redirct to WhatsApp
+              <button type="submit" className="final-whatsapp-btn" disabled={cartCount === 0} style={{ opacity: cartCount === 0 ? 0.4 : 1, cursor: cartCount === 0 ? 'not-allowed' : 'pointer' }}>
+                Confirm & Send to WhatsApp
               </button>
               <p className="privacy-note">We'll use these details to pre-fill your WhatsApp message.</p>
             </form>
@@ -272,22 +305,68 @@ const Pricelist = () => {
         </div>
       )}
 
-      {/* Modern Floating Cart */}
+      {/* Floating Cart Drawer */}
       {cartCount > 0 && !isModalOpen && (
-        <div className="floating-cart-bar">
+        <div className={`floating-cart-bar ${isCartOpen ? 'cart-open' : ''}`}>
+          {/* Cart Items Panel */}
+          {isCartOpen && (
+            <div className="cart-drawer-items">
+              <div className="cart-drawer-header">
+                <span className="cart-drawer-title">🛒 Your Cart</span>
+                <button className="cart-drawer-close" onClick={() => setIsCartOpen(false)}><X size={16} /></button>
+              </div>
+              <div className="cart-items-list">
+                {cart.map(item => {
+                  const prod = getProduct(item.id);
+                  const isEd = editingId === item.id;
+                  return (
+                    <div key={item.id} className="cart-item-row">
+                      <img src={prod?.image} alt={item.name} className="cart-item-img" />
+                      <div className="cart-item-info">
+                        <p className="cart-item-name">{item.name}</p>
+                        <p className="cart-item-pack">{item.pack}</p>
+                        <p className="cart-item-sub">₹{item.price * item.quantity}</p>
+                      </div>
+                      <div className="cart-item-actions">
+                        {isEd ? (
+                          <div className="cart-qty-edit">
+                            <button onClick={() => setEditQty(q => Math.max(1, q - 1))}><Minus size={12} /></button>
+                            <span>{editQty}</span>
+                            <button onClick={() => setEditQty(q => q + 1)}><Plus size={12} /></button>
+                            <button className="cart-save-btn" onClick={() => handleEditSave(prod)}><Check size={12} /></button>
+                          </div>
+                        ) : (
+                          <div className="cart-qty-edit">
+                            <button onClick={() => removeFromCart(item.id)}><Minus size={12} /></button>
+                            <span>{item.quantity}</span>
+                            <button onClick={() => addToCart(prod)}><Plus size={12} /></button>
+                            <button className="cart-edit-btn" onClick={() => { setEditingId(item.id); setEditQty(item.quantity); }} title="Edit"><Pencil size={12} /></button>
+                            <button className="cart-remove-btn" onClick={() => handleRemoveAll(item.id)} title="Remove"><Trash2 size={12} /></button>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* Bar */}
           <div className="cart-bar-inner">
-            <div className="cart-summary-block">
+            <div className="cart-summary-block" onClick={() => setIsCartOpen(o => !o)} style={{ cursor: 'pointer' }}>
               <div className="cart-icon-bg">
                 <ShoppingCart size={18} />
                 <span className="badge-count-dot">{cartCount}</span>
               </div>
               <div className="cart-meta">
-                <span className="meta-items">{cartCount} items selected</span>
+                <span className="meta-items">{cartCount} item{cartCount > 1 ? 's' : ''} selected</span>
                 <span className="meta-price">Total: ₹{cartTotal}</span>
               </div>
+              {isCartOpen ? <ChevronDown size={16} style={{ opacity: 0.6 }} /> : <ChevronUp size={16} style={{ opacity: 0.6 }} />}
             </div>
             <button className="proceed-checkout-btn" onClick={handleCheckout}>
-              Checkout Now <ChevronRight size={18} />
+              Checkout <ChevronRight size={18} />
             </button>
           </div>
         </div>
@@ -554,12 +633,105 @@ const Pricelist = () => {
         .checkout-modal-panel {
           background: white;
           width: 100%;
-          max-width: 480px;
+          max-width: 520px;
+          max-height: 90vh;
+          overflow-y: auto;
           border-radius: 24px;
-          padding: 40px;
+          padding: 32px 32px 40px;
           position: relative;
           box-shadow: 0 30px 70px rgba(0,0,0,0.5);
         }
+
+        .checkout-modal-panel::-webkit-scrollbar { width: 4px; }
+        .checkout-modal-panel::-webkit-scrollbar-thumb { background: #eee; border-radius: 4px; }
+
+        /* Modal order items */
+        .modal-order-items {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          margin-bottom: 24px;
+          padding-bottom: 20px;
+          border-bottom: 1px solid #f0f0f0;
+        }
+
+        .modal-item-row {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          background: #fafafa;
+          border-radius: 12px;
+          padding: 10px 12px;
+          border: 1px solid #f0f0f0;
+        }
+
+        .modal-item-img {
+          width: 54px;
+          height: 54px;
+          border-radius: 8px;
+          object-fit: cover;
+          flex-shrink: 0;
+        }
+
+        .modal-item-info {
+          flex: 1;
+          min-width: 0;
+        }
+
+        .modal-item-name {
+          font-size: 0.85rem;
+          font-weight: 700;
+          color: #1a1a1a;
+          margin: 0 0 2px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .modal-item-pack {
+          font-size: 0.7rem;
+          color: #999;
+          margin: 0 0 3px;
+        }
+
+        .modal-item-sub {
+          font-size: 0.85rem;
+          font-weight: 800;
+          color: #d6008d;
+          margin: 0;
+        }
+
+        .modal-qty-ctrl {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          flex-shrink: 0;
+        }
+
+        .modal-qty-ctrl button {
+          background: #f0f0f0;
+          border: none;
+          color: #333;
+          width: 26px; height: 26px;
+          border-radius: 7px;
+          display: flex; align-items: center; justify-content: center;
+          cursor: pointer;
+          transition: background 0.2s;
+        }
+
+        .modal-qty-ctrl button:hover { background: #e0e0e0; }
+        .modal-qty-ctrl button:disabled { opacity: 0.3; cursor: not-allowed; }
+
+        .modal-qty-ctrl span {
+          font-size: 0.85rem;
+          font-weight: 800;
+          min-width: 22px;
+          text-align: center;
+          color: #1a1a1a;
+        }
+
+        .modal-remove-btn { background: rgba(231,76,60,0.12) !important; color: #e74c3c !important; }
+        .modal-remove-btn:hover { background: #e74c3c !important; color: white !important; }
 
         .panel-header {
            display: flex;
@@ -674,31 +846,39 @@ const Pricelist = () => {
           max-width: 600px;
           background: #1a1a1a;
           color: white;
-          padding: 12px 12px 12px 20px;
-          border-radius: 100px;
+          border-radius: 24px;
           z-index: 2500;
-          box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+          box-shadow: 0 15px 40px rgba(0,0,0,0.4);
           animation: floatIn 0.5s cubic-bezier(0, 0.55, 0.45, 1);
+          overflow: hidden;
+          transition: border-radius 0.3s ease;
+        }
+
+        .floating-cart-bar.cart-open {
+          border-radius: 20px;
         }
 
         .cart-bar-inner {
           display: flex;
           justify-content: space-between;
           align-items: center;
+          padding: 12px 12px 12px 16px;
         }
 
         .cart-summary-block {
           display: flex;
           align-items: center;
-          gap: 15px;
+          gap: 12px;
+          flex: 1;
         }
 
         .cart-icon-bg {
            background: #d6008d;
-           width: 44px; height: 44px;
+           width: 40px; height: 40px;
            border-radius: 50%;
            display: flex; align-items: center; justify-content: center;
            position: relative;
+           flex-shrink: 0;
         }
 
         .badge-count-dot {
@@ -718,28 +898,154 @@ const Pricelist = () => {
            flex-direction: column;
         }
 
-        .meta-items { font-size: 0.8rem; opacity: 0.7; }
-        .meta-price { font-size: 1.1rem; font-weight: 800; }
+        .meta-items { font-size: 0.75rem; opacity: 0.6; }
+        .meta-price { font-size: 1rem; font-weight: 800; }
 
         .proceed-checkout-btn {
           background: #d6008d;
           color: white;
           border: none;
-          padding: 12px 30px;
+          padding: 10px 22px;
           border-radius: 100px;
           font-weight: 800;
-          font-size: 0.95rem;
+          font-size: 0.9rem;
           display: flex;
           align-items: center;
           gap: 6px;
           cursor: pointer;
           transition: all 0.3s;
+          flex-shrink: 0;
         }
 
-        .proceed-checkout-btn:hover {
-           background: #fa00a5;
-           padding-right: 35px;
+        .proceed-checkout-btn:hover { background: #fa00a5; }
+
+        /* Cart Drawer */
+        .cart-drawer-items {
+          border-bottom: 1px solid rgba(255,255,255,0.08);
+          max-height: 340px;
+          overflow-y: auto;
+          padding: 0 16px 8px;
         }
+
+        .cart-drawer-items::-webkit-scrollbar { width: 4px; }
+        .cart-drawer-items::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 4px; }
+
+        .cart-drawer-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 14px 0 10px;
+          position: sticky;
+          top: 0;
+          background: #1a1a1a;
+          z-index: 1;
+        }
+
+        .cart-drawer-title {
+          font-size: 0.85rem;
+          font-weight: 800;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+          color: rgba(255,255,255,0.8);
+        }
+
+        .cart-drawer-close {
+          background: rgba(255,255,255,0.1);
+          border: none;
+          color: white;
+          width: 26px; height: 26px;
+          border-radius: 50%;
+          display: flex; align-items: center; justify-content: center;
+          cursor: pointer;
+        }
+
+        .cart-items-list {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          padding-bottom: 8px;
+        }
+
+        .cart-item-row {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          background: rgba(255,255,255,0.05);
+          border-radius: 12px;
+          padding: 10px 12px;
+        }
+
+        .cart-item-img {
+          width: 52px;
+          height: 52px;
+          border-radius: 8px;
+          object-fit: cover;
+          flex-shrink: 0;
+        }
+
+        .cart-item-info {
+          flex: 1;
+          min-width: 0;
+        }
+
+        .cart-item-name {
+          font-size: 0.82rem;
+          font-weight: 700;
+          color: white;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          margin: 0 0 2px;
+        }
+
+        .cart-item-pack {
+          font-size: 0.68rem;
+          color: rgba(255,255,255,0.45);
+          margin: 0 0 3px;
+        }
+
+        .cart-item-sub {
+          font-size: 0.82rem;
+          font-weight: 800;
+          color: #d6008d;
+          margin: 0;
+        }
+
+        .cart-item-actions { flex-shrink: 0; }
+
+        .cart-qty-edit {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+        }
+
+        .cart-qty-edit button {
+          background: rgba(255,255,255,0.12);
+          border: none;
+          color: white;
+          width: 24px; height: 24px;
+          border-radius: 6px;
+          display: flex; align-items: center; justify-content: center;
+          cursor: pointer;
+          transition: background 0.2s;
+        }
+
+        .cart-qty-edit button:hover { background: rgba(255,255,255,0.22); }
+
+        .cart-qty-edit span {
+          font-size: 0.82rem;
+          font-weight: 800;
+          min-width: 20px;
+          text-align: center;
+          color: white;
+        }
+
+        .cart-edit-btn { background: rgba(214,0,141,0.3) !important; }
+        .cart-edit-btn:hover { background: #d6008d !important; }
+        .cart-save-btn { background: rgba(39,174,96,0.4) !important; }
+        .cart-save-btn:hover { background: #27ae60 !important; }
+        .cart-remove-btn { background: rgba(231,76,60,0.3) !important; }
+        .cart-remove-btn:hover { background: #e74c3c !important; }
 
         @keyframes floatIn {
           from { transform: translate(-50%, 100px); opacity: 0; }
@@ -785,11 +1091,14 @@ const Pricelist = () => {
           .add-to-cart-btn { padding: 6px 12px; font-size: 0.7rem; border-radius: 8px; width: 100%; border-width: 1px; }
           .quantity-control-pill { padding: 5px 8px; gap: 8px; border-radius: 8px; width: 100%; justify-content: space-between; }
           
-          .floating-cart-bar { bottom: 15px; width: 95%; border-radius: 20px; padding: 8px 8px 8px 12px; height: 60px; }
+          .floating-cart-bar { bottom: 15px; width: 95%; }
+          .cart-bar-inner { padding: 8px 8px 8px 12px; }
           .cart-icon-bg { width: 36px; height: 36px; }
           .meta-items { font-size: 0.7rem; }
-          .meta-price { font-size: 0.95rem; }
-          .proceed-checkout-btn { padding: 8px 15px; font-size: 0.8rem; }
+          .meta-price { font-size: 0.9rem; }
+          .proceed-checkout-btn { padding: 8px 14px; font-size: 0.78rem; }
+          .cart-drawer-items { max-height: 260px; }
+          .cart-item-img { width: 42px; height: 42px; }
 
           .checkout-modal-backdrop { align-items: flex-end; padding: 0; }
           .checkout-modal-panel { 
