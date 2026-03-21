@@ -47,7 +47,13 @@ const Pricelist = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    if (name === 'phone') {
+      // Only allow digits and max 10 characters
+      const cleaned = value.replace(/\D/g, '').slice(0, 10);
+      setFormData(prev => ({ ...prev, [name]: cleaned }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
   };
 
   const isCommercial = (id) => id.startsWith('com-');
@@ -89,25 +95,45 @@ const Pricelist = () => {
   const handleFinalOrder = (e) => {
     e.preventDefault();
     if (cartCount === 0 || !isOrderValid()) return;
+    
+    // Validate 10-digit phone number
+    if (formData.phone.length !== 10) {
+      alert("Please enter a valid 10-digit phone number.");
+      return;
+    }
+
+    // Smart Timestamp ID (Unique across all users)
+    const now = new Date();
+    const month = (now.getMonth() + 1).toString().padStart(2, '0');
+    const day = now.getDate().toString().padStart(2, '0');
+    const time = now.getHours().toString().padStart(2, '0') + now.getMinutes().toString().padStart(2, '0');
+    const orderRef = `#JFF-${month}${day}-${time}`;
+    const orderType = activeTab === 'Domestic' ? 'DOMESTIC' : 'COMMERCIAL';
     const phoneNumber = "919848574748";
 
-    let message = "🛍️ *New Order from Joyous Food Factory*\n\n";
-    message += `👤 *Customer Details:*\n`;
-    message += `Name: ${formData.name}\n`;
-    message += `Phone: ${formData.phone}\n`;
-    message += `Address: ${formData.address}\n\n`;
+    let message = "----------------------------\n";
+    message += `*NEW CUSTOMER ORDER [${orderRef}]*\n`;
+    message += "----------------------------\n\n";
+    
+    message += `*ORDER TYPE:* ${orderType}\n`;
+    message += `*NAME:* ${formData.name}\n`;
+    message += `*MOBILE:* ${formData.phone}\n`;
+    message += `*ADDRESS:* ${formData.address}\n\n`;
 
-    message += `🛒 *Order Summary:*\n`;
+    message += `*ORDER SUMMARY:*\n`;
     cart.forEach((item, index) => {
-      message += `${index + 1}. *${item.name}*\n`;
-      message += `   Qty: ${item.quantity} | Pack: ${item.pack}\n`;
-      message += `   Subtotal: ₹${item.price * item.quantity}\n\n`;
+      message += `${index + 1}. *${item.name}* (${item.pack})\n`;
+      message += `   Qty: ${item.quantity} | Subtotal: ₹${item.price * item.quantity}\n`;
     });
 
-    message += `──────────────────\n`;
-    message += `💰 *Total Amount: ₹${cartTotal}*\n`;
-    message += `📦 *Total Items: ${cartCount}*\n\n`;
-    message += `Please confirm my order. Thank you!`;
+    message += `\n----------------------------\n`;
+    message += `*GRAND TOTAL: ₹${cartTotal}*\n`;
+    message += `*TOTAL ITEMS: ${cartCount}*\n`;
+    message += `----------------------------\n\n`;
+
+    message += `_Please confirm my order. Thank you!_\n\n`;
+    message += `*Joyous Food Factory Online Store*\n`;
+    message += `_Artisanal Quality • Pan India Delivery_`;
 
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
@@ -356,12 +382,15 @@ const Pricelist = () => {
                 />
               </div>
               <div className="input-field">
-                <label>Contact Number</label>
+                <label>Contact Number (10 digits)</label>
                 <input
                   type="tel"
                   name="phone"
                   required
-                  placeholder="e.g. +91 98765 43210"
+                  placeholder="e.g. 9876543210"
+                  maxLength="10"
+                  pattern="[0-9]{10}"
+                  title="Please enter a 10-digit phone number"
                   value={formData.phone}
                   onChange={handleInputChange}
                 />
