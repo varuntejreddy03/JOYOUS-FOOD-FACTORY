@@ -556,6 +556,12 @@ img {
   transform: scale(1.1);
 }
 
+@media (max-width: 768px) {
+  .whatsapp-float {
+    display: none !important;
+  }
+}
+
 /* Texture */
 .diagonal-texture {
   position: absolute;
