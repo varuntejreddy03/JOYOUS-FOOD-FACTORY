@@ -13,7 +13,7 @@ const About = () => {
           </Link>
           <div className="hero-text-center fade-in">
             <span className="label-caps italic-accent" style={{ color: 'white' }}>OUR STORY</span>
-            <h1 className="hero-h1">Born in Hyderabad. <br /> <span className="italic-accent">Built on Tradition.</span></h1>
+            <h1 className="hero-h1">Born in India. <br /> <span className="italic-accent">Built on Tradition.</span></h1>
           </div>
         </div>
       </section>
@@ -24,7 +24,7 @@ const About = () => {
             <div className="about-text-col fade-in">
               <p className="story-para">Silver Bites started with one simple mission — to bring authentic Indian flavours to modern tables. As the Authorized Dealer of Andhra Pradesh & Telangana, we take pride in representing a product that is truly rooted in Indian culture while standing tall in contemporary gifting and lifestyle.</p>
 
-              <p className="story-para">Our signature product, the Chocolate Beeda, is a celebration of contrasts — the bold richness of premium chocolate meeting the aromatic warmth of traditional pan fillings. Each piece is made fresh at our Hyderabad facility, using only the finest ingredients — real saffron, fresh pistachios, pure gulkand, and premium chocolate couverture.</p>
+              <p className="story-para">Our signature product, the Chocolate Beeda, is a celebration of contrasts — the bold richness of premium chocolate meeting the aromatic warmth of traditional pan fillings. Each piece is made fresh at our India facility, using only the finest ingredients — real saffron, fresh pistachios, pure gulkand, and premium chocolate couverture.</p>
 
               <p className="story-para">Silver Bites is our promise — a silver standard in every bite. Whether you're gifting at a wedding, celebrating a festival, or simply treating yourself, we craft each box with the same love and attention to detail.</p>
             </div>

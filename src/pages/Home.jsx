@@ -12,7 +12,7 @@ const Home = () => {
             <div className="gold-rule"></div>
             <span className="label-caps italic-accent">Est. 2020</span>
             <h1 className="hero-h1">Blending Tradition <br /> with <span className="italic-accent">Modern Elegance</span></h1>
-            <p className="hero-p">Artisanal Chocolate Beedas — where the age-old magic of Indian pan meets the richness of premium chocolate. Made fresh in Hyderabad, delivered across India.</p>
+            <p className="hero-p">Artisanal Chocolate Beedas — where the age-old magic of Indian pan meets the richness of premium chocolate. Made fresh, delivered across India.</p>
             <div className="hero-actions">
               <a href="/products" className="gold-button">Explore Our Flavours</a>
               <a href="/gifting" className="outline-button">Corporate Gifting Enquiry</a>
@@ -47,7 +47,7 @@ const Home = () => {
             <span className="label-caps">OUR STORY</span>
             <h2 className="section-title">A Legacy of Taste, Reimagined</h2>
             <p>At Silver Bites, we believe that some of India's finest flavours deserve a modern stage. Our Chocolate Beeda is born from that belief — taking the beloved tradition of sweet pan and wrapping it in the finest chocolate shell.</p>
-            <p>Every bite carries the warmth of rose petals, the crunch of fresh pistachios, the aroma of saffron, and the richness of premium chocolate — all blended to perfection, every single day, right here in Hyderabad.</p>
+            <p>Every bite carries the warmth of rose petals, the crunch of fresh pistachios, the aroma of saffron, and the richness of premium chocolate — all blended to perfection, every single day, right here in India.</p>
             <a href="/about" className="learn-more">Read Our Full Story →</a>
           </div>
           <div className="legacy-image-frame">
@@ -92,7 +92,7 @@ const Home = () => {
       <section className="why-choose section" style={{ backgroundColor: 'white' }}>
         <div className="container">
           <header className="text-center fade-in">
-            <h2 className="section-title">Why Hyderabad Loves Silver Bites</h2>
+            <h2 className="section-title">Why India Loves Silver Bites</h2>
           </header>
 
           <div className="tiles-grid">

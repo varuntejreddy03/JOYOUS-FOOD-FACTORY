@@ -102,7 +102,7 @@ const Contact = () => {
         <div className="container">
           <header className="text-center" style={{ marginBottom: '40px' }}>
             <span className="label-caps">FIND US</span>
-            <h2 className="section-title">Our Hyderabad Location</h2>
+            <h2 className="section-title">Our India Location</h2>
           </header>
           <div className="map-placeholder">
             <div style={{ background: '#f0f0f0', height: '450px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

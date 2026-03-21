@@ -19,7 +19,16 @@ const commercialProducts = [
 ];
 
 const Pricelist = () => {
-  const { cart, addToCart, removeFromCart, cartTotal, cartCount } = useCart();
+  const { 
+    cart, 
+    addToCart, 
+    removeFromCart, 
+    clearCart, 
+    cartTotal, 
+    cartCount, 
+    isSyncing, 
+    lastSynced 
+  } = useCart();
   const [activeTab, setActiveTab] = useState('Domestic');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [checkoutError, setCheckoutError] = useState(false);
@@ -28,6 +37,8 @@ const Pricelist = () => {
     phone: '',
     address: ''
   });
+  const [showConflictModal, setShowConflictModal] = useState(false);
+  const [pendingProduct, setPendingProduct] = useState(null);
 
   const getItemQuantity = (id) => {
     const item = cart.find((i) => i.id === id);
@@ -39,14 +50,35 @@ const Pricelist = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleCheckout = () => {
-    const commercialCount = cart
-      .filter(item => item.id.startsWith('com-'))
-      .reduce((sum, item) => sum + item.quantity, 0);
+  const isCommercial = (id) => id.startsWith('com-');
 
+  const getCommercialCount = () => {
+    return cart
+      .filter(item => isCommercial(item.id))
+      .reduce((sum, item) => sum + item.quantity, 0);
+  };
+
+  const isOrderValid = () => {
+    const commercialCount = getCommercialCount();
+    // Only apply 5-multiple rule for commercial products
     if (commercialCount > 0 && commercialCount % 5 !== 0) {
+      return false;
+    }
+    return true;
+  };
+
+  const handleCheckout = () => {
+    if (!isOrderValid()) {
       setCheckoutError(true);
-      setTimeout(() => setCheckoutError(false), 3500); // Hide after 3.5 seconds
+      setTimeout(() => setCheckoutError(false), 3500);
+      return;
+    }
+
+    // Verify there's no mix
+    const hasDomestic = cart.some(item => !isCommercial(item.id));
+    const hasCommercial = cart.some(item => isCommercial(item.id));
+    if (hasDomestic && hasCommercial) {
+      alert("You cannot mix Domestic and Commercial orders. Please clear your cart first.");
       return;
     }
 
@@ -56,7 +88,7 @@ const Pricelist = () => {
 
   const handleFinalOrder = (e) => {
     e.preventDefault();
-    if (cartCount === 0) return;
+    if (cartCount === 0 || !isOrderValid()) return;
     const phoneNumber = "919848574748";
 
     let message = "🛍️ *New Order from Joyous Food Factory*\n\n";
@@ -104,7 +136,30 @@ const Pricelist = () => {
     setEditingId(null);
   };
 
-  const isCommercial = (id) => id.startsWith('com-');
+  const isCommercialProd = (id) => id.startsWith('com-');
+
+  const handleAddToCartWithCheck = (product) => {
+    const hasDomestic = cart.some(item => !isCommercial(item.id));
+    const hasCommercial = cart.some(item => isCommercial(item.id));
+    const addingCommercial = isCommercial(product.id);
+
+    if ((addingCommercial && hasDomestic) || (!addingCommercial && hasCommercial)) {
+      setPendingProduct(product);
+      setShowConflictModal(true);
+      return;
+    }
+
+    addToCart(product);
+  };
+
+  const confirmSwitchCategory = () => {
+    clearCart();
+    if (pendingProduct) {
+      addToCart(pendingProduct);
+      setPendingProduct(null);
+    }
+    setShowConflictModal(false);
+  };
 
   const ProductCard = ({ product }) => {
     const quantity = getItemQuantity(product.id);
@@ -138,7 +193,7 @@ const Pricelist = () => {
 
             <div className="action-container">
               {quantity === 0 ? (
-                <button className="add-to-cart-btn" onClick={() => addToCart(product)}>ADD</button>
+                <button className="add-to-cart-btn" onClick={() => handleAddToCartWithCheck(product)}>ADD</button>
               ) : isEditing ? (
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                   <div className="quantity-control-pill">
@@ -153,7 +208,7 @@ const Pricelist = () => {
                   <div className="quantity-control-pill">
                     <button onClick={() => removeFromCart(product.id)} className="qty-minus"><Minus size={14} /></button>
                     <span className="qty-value">{quantity}</span>
-                    <button onClick={() => addToCart(product)} className="qty-plus"><Plus size={14} /></button>
+                    <button onClick={() => handleAddToCartWithCheck(product)} className="qty-plus"><Plus size={14} /></button>
                   </div>
                   <button className="edit-icon-btn" onClick={() => { setEditingId(product.id); setEditQty(quantity); }} title="Edit"><Pencil size={13} /></button>
                 </div>
@@ -185,8 +240,21 @@ const Pricelist = () => {
       </div>
 
       {activeTab === 'Commercial' && (
-        <div style={{ textAlign: 'center', marginBottom: '20px', padding: '10px', background: 'rgba(214, 0, 141, 0.05)', borderRadius: '8px', color: 'var(--hero-bg)' }}>
-          <span style={{ fontWeight: 'bold' }}>Note:</span> Minimum Order 250 / 500 / 750 / 1000 pcs
+        <>
+          <div style={{ textAlign: 'center', marginBottom: '20px', padding: '10px', background: 'rgba(214, 0, 141, 0.05)', borderRadius: '8px', color: 'var(--hero-bg)' }}>
+            <span style={{ fontWeight: 'bold' }}>Note:</span> Minimum Order 250 / 500 / 750 / 1000 pcs
+          </div>
+          {cart.some(i => !i.id.startsWith('com-')) && (
+            <div style={{ textAlign: 'center', marginBottom: '15px', color: '#d35400', fontSize: '0.9rem', fontWeight: '600' }} className="fade-in">
+              ⚠️ Note: Adding commercial items will clear your domestic cart.
+            </div>
+          )}
+        </>
+      )}
+
+      {activeTab === 'Domestic' && cart.some(i => i.id.startsWith('com-')) && (
+        <div style={{ textAlign: 'center', marginBottom: '15px', color: '#d35400', fontSize: '0.9rem', fontWeight: '600' }} className="fade-in">
+          ⚠️ Note: Adding domestic items will clear your commercial cart.
         </div>
       )}
 
@@ -222,6 +290,27 @@ const Pricelist = () => {
         </div>
       )}
 
+      {isModalOpen && !isOrderValid() && (
+        <div style={{
+          position: 'fixed',
+          bottom: '100px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          background: 'var(--hero-bg)',
+          color: 'var(--accent-gold)',
+          padding: '12px 24px',
+          borderRadius: '30px',
+          boxShadow: '0 10px 30px rgba(0,0,0,0.3)',
+          zIndex: 4000, 
+          fontWeight: 700,
+          textAlign: 'center',
+          animation: 'fade-in 0.3s ease-out',
+          border: '1px solid var(--accent-gold)'
+        }}>
+          Minimum Order Multiples: 5 units (e.g., 5, 10, 15...)
+        </div>
+      )}
+
       {/* Checkout Modal */}
       {isModalOpen && (
         <div className="checkout-modal-backdrop">
@@ -246,7 +335,7 @@ const Pricelist = () => {
                     <div className="modal-qty-ctrl">
                       <button onClick={() => removeFromCart(item.id)} disabled={item.quantity === 0}><Minus size={13} /></button>
                       <span>{item.quantity}</span>
-                      <button onClick={() => addToCart(prod)}><Plus size={13} /></button>
+                      <button onClick={() => handleAddToCartWithCheck(prod)}><Plus size={13} /></button>
                       <button className="modal-remove-btn" onClick={() => handleRemoveAll(item.id)} title="Remove"><Trash2 size={13} /></button>
                     </div>
                   </div>
@@ -289,14 +378,24 @@ const Pricelist = () => {
                 ></textarea>
               </div>
 
-              <div className="order-brief">
+               <div className="order-brief">
                 <div className="brief-line">
                   <span>Grand Total ({cartCount} items)</span>
                   <span className="brief-price">₹{cartTotal}</span>
                 </div>
+                {!isOrderValid() && (
+                  <div style={{ marginTop: '10px', color: '#e74c3c', fontSize: '0.8rem', fontWeight: 800 }}>
+                    ⚠️ Commercial orders must be in multiples of 5 units (250, 500, 750... pieces)
+                  </div>
+                )}
               </div>
 
-              <button type="submit" className="final-whatsapp-btn" disabled={cartCount === 0} style={{ opacity: cartCount === 0 ? 0.4 : 1, cursor: cartCount === 0 ? 'not-allowed' : 'pointer' }}>
+              <button 
+                type="submit" 
+                className="final-whatsapp-btn" 
+                disabled={cartCount === 0 || !isOrderValid()} 
+                style={{ opacity: (cartCount === 0 || !isOrderValid()) ? 0.4 : 1, cursor: (cartCount === 0 || !isOrderValid()) ? 'not-allowed' : 'pointer' }}
+              >
                 Confirm & Send to WhatsApp
               </button>
               <p className="privacy-note">We'll use these details to pre-fill your WhatsApp message.</p>
@@ -339,7 +438,7 @@ const Pricelist = () => {
                           <div className="cart-qty-edit">
                             <button onClick={() => removeFromCart(item.id)}><Minus size={12} /></button>
                             <span>{item.quantity}</span>
-                            <button onClick={() => addToCart(prod)}><Plus size={12} /></button>
+                            <button onClick={() => handleAddToCartWithCheck(prod)}><Plus size={12} /></button>
                             <button className="cart-edit-btn" onClick={() => { setEditingId(item.id); setEditQty(item.quantity); }} title="Edit"><Pencil size={12} /></button>
                             <button className="cart-remove-btn" onClick={() => handleRemoveAll(item.id)} title="Remove"><Trash2 size={12} /></button>
                           </div>
@@ -362,12 +461,52 @@ const Pricelist = () => {
               <div className="cart-meta">
                 <span className="meta-items">{cartCount} item{cartCount > 1 ? 's' : ''} selected</span>
                 <span className="meta-price">Total: ₹{cartTotal}</span>
+                <div className="sync-status" style={{ fontSize: '0.65rem', display: 'flex', alignItems: 'center', gap: '4px', opacity: 0.6 }}>
+                  {isSyncing ? (
+                    <span className="syncing-text" style={{ color: '#2979ff' }}>Syncing to Store...</span>
+                  ) : (
+                    <span>Last saved at {lastSynced}</span>
+                  )}
+                </div>
               </div>
               {isCartOpen ? <ChevronDown size={16} style={{ opacity: 0.6 }} /> : <ChevronUp size={16} style={{ opacity: 0.6 }} />}
             </div>
             <button className="proceed-checkout-btn" onClick={handleCheckout}>
               Checkout <ChevronRight size={18} />
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* Conflict Modal */}
+      {showConflictModal && (
+        <div className="checkout-modal-backdrop" style={{ zIndex: 4000 }}>
+          <div className="checkout-modal-panel conflict-panel" style={{ maxWidth: '400px', textAlign: 'center' }}>
+            <div className="conflict-icon" style={{ color: '#d6008d', marginBottom: '20px' }}>
+              <ShoppingCart size={48} strokeWidth={1.5} style={{ margin: '0 auto' }} />
+            </div>
+            <h3 style={{ marginBottom: '15px' }}>Separate Order Required</h3>
+            <p style={{ color: '#666', marginBottom: '25px', lineHeight: 1.5 }}>
+              Your cart contains {cart.some(i => isCommercial(i.id)) ? 'Commercial' : 'Domestic'} items. 
+              {pendingProduct && isCommercial(pendingProduct.id) ? ' Commercial' : ' Domestic'} orders must be placed separately. 
+              Do you want to clear your current cart and start a new order?
+            </p>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button 
+                className="add-to-cart-btn" 
+                style={{ flex: 1, padding: '12px', borderColor: '#ddd', color: '#666' }}
+                onClick={() => setShowConflictModal(false)}
+              >
+                Cancel
+              </button>
+              <button 
+                className="add-to-cart-btn" 
+                style={{ flex: 2, padding: '12px', background: '#d6008d', color: 'white' }}
+                onClick={confirmSwitchCategory}
+              >
+                Clear & Switch
+              </button>
+            </div>
           </div>
         </div>
       )}

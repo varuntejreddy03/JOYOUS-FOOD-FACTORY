@@ -15,9 +15,26 @@ export const CartProvider = ({ children }) => {
     const savedCart = localStorage.getItem('sliver-bites-cart');
     return savedCart ? JSON.parse(savedCart) : [];
   });
+  
+  const [isSyncing, setIsSyncing] = useState(false);
+  const [lastSynced, setLastSynced] = useState(new Date().toLocaleTimeString());
 
+  // Optimistic Background Sync Simulation
   useEffect(() => {
+    // 1. Immediate Persistence (Optimistic)
     localStorage.setItem('sliver-bites-cart', JSON.stringify(cart));
+    
+    // 2. Mock Cloud Store Sync
+    if (cart.length > 0) {
+      setIsSyncing(true);
+      const timer = setTimeout(() => {
+        setIsSyncing(false);
+        setLastSynced(new Date().toLocaleTimeString());
+      }, 800); // Simulate network/db delay
+      return () => clearTimeout(timer);
+    } else {
+      setIsSyncing(false);
+    }
   }, [cart]);
 
   const addToCart = (product) => {
@@ -50,7 +67,16 @@ export const CartProvider = ({ children }) => {
   const cartCount = cart.reduce((total, item) => total + item.quantity, 0);
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, cartTotal, cartCount }}>
+    <CartContext.Provider value={{ 
+      cart, 
+      addToCart, 
+      removeFromCart, 
+      clearCart, 
+      cartTotal, 
+      cartCount,
+      isSyncing,
+      lastSynced
+    }}>
       {children}
     </CartContext.Provider>
   );
