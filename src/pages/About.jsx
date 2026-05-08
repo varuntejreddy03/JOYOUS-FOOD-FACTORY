@@ -22,7 +22,7 @@ const About = () => {
         <div className="container">
           <div className="about-split">
             <div className="about-text-col fade-in">
-              <p className="story-para">Silver Bites started with one simple mission — to bring authentic Indian flavours to modern tables. As the Authorized Dealer of Andhra Pradesh & Telangana, we take pride in representing a product that is truly rooted in Indian culture while standing tall in contemporary gifting and lifestyle.</p>
+              <p className="story-para">Silver Bites started with one simple mission — to bring authentic Indian flavours to modern tables. As the Authorized C&F for Andhra Pradesh & Telangana, we take pride in representing a product that is truly rooted in Indian culture while standing tall in contemporary gifting and lifestyle.</p>
 
               <p className="story-para">Our signature product, the Chocolate Beeda, is a celebration of contrasts — the bold richness of premium chocolate meeting the aromatic warmth of traditional pan fillings. Each piece is made fresh at our India facility, using only the finest ingredients — real saffron, fresh pistachios, pure gulkand, and premium chocolate couverture.</p>
 
@@ -34,7 +34,7 @@ const About = () => {
                   <span className="label-caps">The Brand</span>
                   <h3>Silver Bites</h3>
                   <div className="card-divider" />
-                  <p>Status: Authorized Distributor of Andhra Pradesh & Telangana</p>
+                  <p>Status: Authorized C&F for Andhra Pradesh & Telangana</p>
                   <p>Location: KPHB, Hyderabad, Telangana</p>
                   <p>Contact: 9848574748</p>
                 </div>
