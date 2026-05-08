@@ -40,7 +40,7 @@ const Footer = () => {
               "Crafting moments of pure joy through artisan flavours and Indian tradition."
             </p>
             <div className="social-links" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="footer-social-icon" title="Instagram"><InstagramIcon /></a>
+              <a href="https://www.instagram.com/joyous_food_factory?utm_source=qr&igsh=MTg2OWw1Z2xqenc4bg==" target="_blank" rel="noopener noreferrer" className="footer-social-icon" title="Instagram"><InstagramIcon /></a>
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="footer-social-icon" title="Facebook"><FacebookIcon /></a>
               <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" className="footer-social-icon" title="YouTube"><YouTubeIcon /></a>
               <a href="https://wa.me/919848574748" target="_blank" rel="noopener noreferrer" className="footer-social-icon whatsapp" title="WhatsApp"><WhatsAppIcon /></a>
@@ -82,7 +82,10 @@ const Footer = () => {
 
         <div className="footer-bottom">
           <p>© 2026 Silver Bites. All Rights Reserved. | <Link to="#">Privacy Policy</Link> | <Link to="#">Terms of Service</Link></p>
-          <p style={{ marginTop: '5px', fontWeight: 'bold', letterSpacing: '1px' }}>FSSAI NO: 23626032002896</p>
+          <div style={{ marginTop: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
+            <img src="https://e7.pngegg.com/pngimages/333/237/png-clipart-food-safety-and-standards-authority-of-india-logo-india-food-text.png" alt="FSSAI Logo" style={{ height: '35px', borderRadius: '4px', objectFit: 'contain' }} />
+            <p style={{ fontWeight: 'bold', letterSpacing: '1px', margin: 0 }}>FSSAI NO: 23626032002896</p>
+          </div>
           <p style={{ marginTop: '10px', fontSize: '0.7rem' }}>Authorized C&F for Andhra Pradesh & Telangana</p>
         </div>
       </div>
