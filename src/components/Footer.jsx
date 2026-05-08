@@ -82,6 +82,7 @@ const Footer = () => {
 
         <div className="footer-bottom">
           <p>© 2026 Silver Bites. All Rights Reserved. | <Link to="#">Privacy Policy</Link> | <Link to="#">Terms of Service</Link></p>
+          <p style={{ marginTop: '5px', fontWeight: 'bold', letterSpacing: '1px' }}>FSSAI NO: 23626032002896</p>
           <p style={{ marginTop: '10px', fontSize: '0.7rem' }}>Authorized Distributor of Andhra Pradesh & Telangana</p>
         </div>
       </div>

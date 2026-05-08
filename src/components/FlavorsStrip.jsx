@@ -4,7 +4,7 @@ const flavors = [
   { name: 'Original Chocolate', color: '#1e0e05', text: '#f5e6d3', icon: '🍫' },
   { name: 'Rose Gulkand', color: '#f2c4ce', text: '#1e0e05', icon: '🌹' },
   { name: 'Kesar Badam', color: '#e8a020', text: '#1e0e05', icon: '✨' },
-  { name: 'Pistachio Delight', color: '#8db87a', text: '#1e0e05', icon: '🥜' },
+  { name: 'Pistachio Delight', color: '#8db87a', text: '#1e0e05', icon: '🍃' },
   { name: 'Mango Fusion', color: '#f5c842', text: '#1e0e05', icon: '🥭' },
   { name: 'Vanilla', color: '#f5f0e8', text: '#1e0e05', icon: '🍦' },
 ]
