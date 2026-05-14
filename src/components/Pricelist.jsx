@@ -3,12 +3,22 @@ import { Plus, Minus, ShoppingCart, ChevronRight, X, Star, Zap, Pencil, Check, C
 import { useCart } from '../context/CartContext';
 
 const domesticProducts = [
+  { 
+    id: 'dom-giftbox', 
+    name: 'Special Gift Box', 
+    pack: '36 Pieces (6 Flavours × 6 pcs)', 
+    price: 999, 
+    image: '/Gemini_Generated_Image_50m3lk50m3lk50m3.png', 
+    tag: 'Free Shipping',
+    freeShipping: true 
+  },
   { id: 'dom-rose', name: 'Rose Flavour', pack: 'Pack of 1 × 25 pcs', price: 625, image: '/3/B (169) copy.jpg', tag: 'Bestseller' },
   { id: 'dom-choco', name: 'Chocolate Flavour', pack: 'Pack of 1 × 25 pcs', price: 625, image: '/1/B (71) copy.jpg', tag: 'Classic' },
   { id: 'dom-pista', name: 'Pista Flavour', pack: 'Pack of 1 × 25 pcs', price: 625, image: '/2/B (157) copy.jpg' },
   { id: 'dom-vanilla', name: 'Vanilla Flavour', pack: 'Pack of 1 × 25 pcs', price: 625, image: '/5/B (352) copy.jpg', tag: 'New' },
   { id: 'dom-kesar', name: 'Kesar Badam Flavour', pack: 'Pack of 1 × 25 pcs', price: 625, image: '/4/B (292) copy.jpg' },
 ];
+
 
 const commercialProducts = [
   { id: 'com-rose', name: 'Rose Flavour', pack: 'Pack of 1 × 50 pcs', price: 1200, image: '/3/B (169) copy.jpg', tag: 'Bulk Save' },
@@ -202,8 +212,8 @@ const Pricelist = () => {
               {product.tag}
             </div>
           )}
-          <div className={`shipping-tag ${commercial ? 'free-shipping' : 'shipping-extra'}`}>
-            {commercial ? '🚚 Free Shipping' : '📦 Shipping Extra'}
+          <div className={`shipping-tag ${commercial || product.freeShipping ? 'free-shipping' : 'shipping-extra'}`}>
+            {commercial || product.freeShipping ? '🚚 Free Shipping' : '📦 Shipping Extra'}
           </div>
         </div>
         <div className="card-info-content">
@@ -656,6 +666,8 @@ const Pricelist = () => {
         .product-badge.bulk-save { background: #2979ff; color: #fff; }
         .product-badge.most-popular { background: #d6008d; color: #fff; }
         .product-badge.classic { background: #333; color: #fff; }
+        .product-badge.free-shipping { background: #d6008d; color: #fff; }
+
 
         .shipping-tag {
           position: absolute;
