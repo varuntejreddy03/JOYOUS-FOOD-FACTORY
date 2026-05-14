@@ -10,7 +10,9 @@ const Gallery = () => {
   const items = [
     // Combo / Collections
     { title: "The Signature Combo Box", cat: 'Products', image: '/Combo/B (382) copy.jpg' },
+    { title: "Special Artisan Gift Box", cat: 'Gift Boxes', image: '/Gemini_Generated_Image_50m3lk50m3lk50m3.png' },
     { title: "Premium Gifting Assortment", cat: 'Gift Boxes', image: '/Combo/B (376) copy.jpg' },
+
 
     // Original Series (Folder 1)
     { title: "Artisan Dark Chocolate Shells", cat: 'Products', image: '/1/B (69) copy.jpg' },
